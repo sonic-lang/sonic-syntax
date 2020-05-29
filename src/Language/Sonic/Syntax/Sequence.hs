@@ -1,5 +1,5 @@
-module Language.Sonic.Syntax.Kind
-  ( Kind(..)
+module Language.Sonic.Syntax.Sequence
+  ( Sequence(..)
   )
 where
 
@@ -8,7 +8,6 @@ import           Data.Data                      ( Data )
 
 import           Language.Sonic.Syntax.Location ( Located )
 
-data Kind l
-  = Type
-  | Arrow (Located l Kind) (Located l Kind)
+-- | (possibly punctuated) sequence of @a@
+newtype Sequence a l = Sequence [Located l a]
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

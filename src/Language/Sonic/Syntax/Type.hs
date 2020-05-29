@@ -10,38 +10,39 @@ where
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 
+import           Language.Sonic.Syntax.Sequence ( Sequence )
 import           Language.Sonic.Syntax.Name     ( TyVarName
                                                 , TyCtorName
                                                 , ClassName
                                                 )
-import           Language.Sonic.Syntax.Location ( L )
+import           Language.Sonic.Syntax.Location ( Located )
 import           Language.Sonic.Syntax.Path     ( Path )
 import           Language.Sonic.Syntax.Kind     ( Kind )
 
-data Type
-  = Var (L (Path TyVarName))
-  | Ctor (L (Path TyCtorName))
-  | Tuple (L [L Type])
-  | Apply (L Type) (L Type)
-  | InfixApply (L Type) (L Infix) (L Type)
-  | Annotate (L Type) (L Kind)
-  | Forall [L TyVarBinder] (L Context) (L Type)
-  deriving (Show, Eq, Ord, Data, Generic)
+data Type l
+  = Var (Located l (Path TyVarName))
+  | Ctor (Located l (Path TyCtorName))
+  | Tuple (Located l (Sequence Type))
+  | Apply (Located l Type) (Located l Type)
+  | InfixApply (Located l Type) (Located l Infix) (Located l Type)
+  | Annotate (Located l Type) (Located l Kind)
+  | Forall (Sequence TyVarBinder l) (Located l Context) (Located l Type)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype Infix = Infix (Path TyCtorName)
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype Infix l = Infix (Path TyCtorName l)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data TyVarBinder
+data TyVarBinder l
   = TyVarBinder
-  { var  :: L TyVarName
-  , kind :: Maybe (L Kind)
+  { var  :: Located l TyVarName
+  , kind :: Maybe (Located l Kind)
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype Context = Context (L [L Predicate])
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype Context l = Context (Located l (Sequence Predicate))
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data Predicate
-  = Class (L (Path ClassName)) [L Type]
-  | Equality (L Type) (L Type)
-  deriving (Show, Eq, Ord, Data, Generic)
+data Predicate l
+  = Class (Located l (Path ClassName)) [Located l Type]
+  | Equality (Located l Type) (Located l Type)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

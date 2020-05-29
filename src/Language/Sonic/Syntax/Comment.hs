@@ -7,7 +7,7 @@ import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 import           Data.Text                      ( Text )
 
-data Comment
+data Comment l
   = MultiLine Text
   | SingleLine Text
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

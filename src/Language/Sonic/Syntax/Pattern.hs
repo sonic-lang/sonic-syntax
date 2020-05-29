@@ -6,16 +6,17 @@ where
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 
-import           Language.Sonic.Syntax.Location ( L )
+import           Language.Sonic.Syntax.Sequence ( Sequence )
+import           Language.Sonic.Syntax.Location ( Located )
 import           Language.Sonic.Syntax.Literal  ( Literal )
 import           Language.Sonic.Syntax.Name     ( VarName
                                                 , CtorName
                                                 )
 
-data Pat
+data Pat l
   = Wildcard
-  | Literal (L Literal)
-  | Var (L VarName)
-  | Tuple (L [L Pat])
-  | Ctor (L CtorName) [L Pat]
-  deriving (Show, Eq, Ord, Data, Generic)
+  | Literal (Located l Literal)
+  | Var (Located l VarName)
+  | Tuple (Located l (Sequence Pat))
+  | Ctor (Located l CtorName) (Sequence Pat l)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

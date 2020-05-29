@@ -12,20 +12,20 @@ import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 import           Data.Text                      ( Text )
 
-newtype CtorName = CtorName Text
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype CtorName l = CtorName Text
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype VarName = VarName Text
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype VarName l = VarName Text
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype TyCtorName = TyCtorName Text
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype TyCtorName l = TyCtorName Text
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype TyVarName = TyVarName Text
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype TyVarName l = TyVarName Text
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype ClassName = ClassName Text
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype ClassName l = ClassName Text
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype ModuleComponentName = ModuleComponentName Text
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype ModuleComponentName l = ModuleComponentName Text
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

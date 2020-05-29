@@ -1,38 +1,18 @@
 module Language.Sonic.Syntax.Location
-  ( L
-  , Located(..)
-  , Location(..)
-  , Range(..)
-  , Position(..)
+  ( Located
+  , L(..)
   )
 where
 
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
-import           Numeric.Natural                ( Natural )
 
-type L a = Located a
+type Located l a = L a l
 
-data Located a = Located Location a
-  deriving (Show, Eq, Ord, Data, Generic)
-
-data Location
-  = Location
-  { file  :: FilePath
-  , range :: Range
+data L a l
+  = L
+  { begin   :: l
+  , content :: a l
+  , end     :: l
   }
-  deriving (Show, Eq, Ord, Data, Generic)
-
-data Range
-  = Range
-  { begin :: Position
-  , end   :: Position
-  }
-  deriving (Show, Eq, Ord, Data, Generic)
-
-data Position
-  = Position
-  { line   :: Natural
-  , column :: Natural
-  }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

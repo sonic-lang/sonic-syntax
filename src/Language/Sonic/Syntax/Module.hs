@@ -6,14 +6,9 @@ where
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 
-import           Language.Sonic.Syntax.Location ( L )
+import           Language.Sonic.Syntax.Sequence ( Sequence )
 import           Language.Sonic.Syntax.Declaration
                                                 ( Decl )
-import           Language.Sonic.Syntax.Comment  ( Comment )
 
-data Module
-  = Module
-  { decls    :: [L Decl]
-  , comments :: [L Comment]
-  }
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype Module l = Module (Sequence Decl l)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

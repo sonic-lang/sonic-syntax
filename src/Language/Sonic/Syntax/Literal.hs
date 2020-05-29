@@ -6,7 +6,7 @@ where
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 
-data Literal
+data Literal l
   = Integer Integer
   | Boolean Bool
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

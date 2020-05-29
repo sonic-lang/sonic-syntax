@@ -11,55 +11,56 @@ where
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 
+import           Language.Sonic.Syntax.Sequence ( Sequence )
 import           Language.Sonic.Syntax.Name     ( CtorName
                                                 , VarName
                                                 )
-import           Language.Sonic.Syntax.Location ( L )
+import           Language.Sonic.Syntax.Location ( Located )
 import           Language.Sonic.Syntax.Path     ( Path )
 import           Language.Sonic.Syntax.Literal  ( Literal )
 import           Language.Sonic.Syntax.Type     ( Type )
 import           Language.Sonic.Syntax.Pattern  ( Pat )
 
-data Expr
-  = Var (L (Path VarName))
-  | Ctor (L (Path CtorName))
-  | Literal (L Literal)
-  | Tuple (L [L Expr])
-  | Apply (L Expr) (L Expr)
-  | InfixApply (L Expr) (L Infix) (L Expr)
-  | Lambda (L VarName) (L Expr)
-  | Annotate (L Expr) (L Type)
-  | Let (L [L LetDefn]) (L Expr)
-  | Case (L Expr) (L [L CaseArm])
-  deriving (Show, Eq, Ord, Data, Generic)
+data Expr l
+  = Var (Located l (Path VarName))
+  | Ctor (Located l (Path CtorName))
+  | Literal (Located l Literal)
+  | Tuple (Located l (Sequence Expr))
+  | Apply (Located l Expr) (Located l Expr)
+  | InfixApply (Located l Expr) (Located l Infix) (Located l Expr)
+  | Lambda (Located l VarName) (Located l Expr)
+  | Annotate (Located l Expr) (Located l Type)
+  | Let (Located l (Sequence LetDefn)) (Located l Expr)
+  | Case (Located l Expr) (Located l (Sequence CaseArm))
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data Infix
-  = RawVar (Path VarName)
-  | RawCtor (Path CtorName)
-  | Quoted (L Expr)
-  deriving (Show, Eq, Ord, Data, Generic)
+data Infix l
+  = RawVar (Path VarName l)
+  | RawCtor (Path CtorName l)
+  | Quoted (Located l Expr)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data LetDefn
+data LetDefn l
   = LetDefn
-  { binder  :: L LetBinder
-  , body    :: L Expr
+  { binder  :: Located l LetBinder
+  , body    :: Located l Expr
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data LetBinder
+data LetBinder l
   = LetBinder
-  { name  :: L VarName
-  , type_ :: Maybe (L Type)
+  { name  :: Located l VarName
+  , type_ :: Maybe (Located l Type)
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data CaseArm
+data CaseArm l
   = CaseArm
-  { pat   :: L Pat
-  , guard :: L Guard
-  , body  :: L Expr
+  { pat   :: Located l Pat
+  , guard :: Located l Guard
+  , body  :: Located l Expr
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype Guard = Guard (L Expr)
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype Guard l = Guard (Located l Expr)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

@@ -7,19 +7,20 @@ where
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
 
+import           Language.Sonic.Syntax.Sequence ( Sequence )
 import           Language.Sonic.Syntax.Name     ( ModuleComponentName )
-import           Language.Sonic.Syntax.Location ( L )
+import           Language.Sonic.Syntax.Location ( Located )
 
-data Path n
+data Path n l
   = Path
-  { prefix     :: Maybe (L PathPrefix)
-  , modulePath :: L [L ModuleComponentName]
-  , name       :: L n
+  { prefix     :: Maybe (Located l PathPrefix)
+  , modulePath :: Located l (Sequence ModuleComponentName)
+  , name       :: Located l n
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data PathPrefix
+data PathPrefix l
   = Dot
   | Colon
   | Hash
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

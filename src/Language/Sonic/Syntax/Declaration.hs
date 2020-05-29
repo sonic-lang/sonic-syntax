@@ -14,14 +14,14 @@ where
 
 import           GHC.Generics                   ( Generic )
 import           Data.Data                      ( Data )
-import           Data.List.NonEmpty             ( NonEmpty )
 
+import           Language.Sonic.Syntax.Sequence ( Sequence )
 import           Language.Sonic.Syntax.Name     ( CtorName
                                                 , VarName
                                                 , TyCtorName
                                                 , ClassName
                                                 )
-import           Language.Sonic.Syntax.Location ( L )
+import           Language.Sonic.Syntax.Location ( Located )
 import           Language.Sonic.Syntax.Path     ( Path )
 import           Language.Sonic.Syntax.Type     ( Context
                                                 , Type
@@ -34,84 +34,84 @@ import           Language.Sonic.Syntax.Expression
                                                 )
 
 -- | Top-level declaration.
-data Decl
-  = Simple SimpleDecl
-  | Data DataDecl
-  | Class ClassDecl
-  | Instance InstanceDecl
-  deriving (Show, Eq, Ord, Data, Generic)
+data Decl l
+  = Simple (SimpleDecl l)
+  | Data (DataDecl l)
+  | Class (ClassDecl l)
+  | Instance (InstanceDecl l)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Simple declaration, which is either a name signature declaration or a value declaration.
-data SimpleDecl
-  = Signature (SignatureDecl VarName)
-  | Value ValueDecl
-  | Function FunctionDecl
-  deriving (Show, Eq, Ord, Data, Generic)
+data SimpleDecl l
+  = Signature (SignatureDecl VarName l)
+  | Value (ValueDecl l)
+  | Function (FunctionDecl l)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Name signature declaration.
-data SignatureDecl name
+data SignatureDecl name l
   = SignatureDecl
-  { name  :: L name
-  , type_ :: L Type
+  { name  :: Located l name
+  , type_ :: Located l Type
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Value declaration.
-data ValueDecl
+data ValueDecl l
   = ValueDecl
-  { pat      :: L Pat
-  , body     :: L Expr
-  , bindings :: Maybe (L (WhereClause SimpleDecl))
+  { pat      :: Located l Pat
+  , body     :: Located l Expr
+  , bindings :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Function declaration.
-data FunctionDecl
+data FunctionDecl l
   = FunctionDecl
-  { name    :: L VarName
-  , clauses :: L (NonEmpty (L FunctionClause))
+  { name    :: Located l VarName
+  , clauses :: Located l (Sequence FunctionClause)
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Clause in function declaration.
-data FunctionClause
+data FunctionClause l
   = FunctionClause
-  { pats     :: NonEmpty (L Pat)
-  , guard    :: Maybe (L Guard)
-  , body     :: L Expr
-  , bindings :: Maybe (L (WhereClause SimpleDecl))
+  { pats     :: Sequence Pat l
+  , guard    :: Maybe (Located l Guard)
+  , body     :: Located l Expr
+  , bindings :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Data type declaration.
-data DataDecl
+data DataDecl l
   = DataDecl
-  { dataName  :: L TyCtorName
-  , vars      :: [L TyVarBinder]
-  , ctors     :: Maybe (L (WhereClause (SignatureDecl CtorName)))
+  { dataName  :: Located l TyCtorName
+  , vars      :: Sequence TyVarBinder l
+  , ctors     :: Maybe (Located l (WhereClause (SignatureDecl CtorName)))
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Type class declaration.
-data ClassDecl
+data ClassDecl l
   = ClassDecl
-  { context   :: Maybe (L Context)
-  , className :: L ClassName
-  , vars      :: [L TyVarBinder]
-  , methods   :: Maybe (L (WhereClause SimpleDecl))
+  { context   :: Maybe (Located l Context)
+  , className :: Located l ClassName
+  , vars      :: Sequence TyVarBinder l
+  , methods   :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Type class instance declaration.
-data InstanceDecl
+data InstanceDecl l
   = InstanceDecl
-  { context   :: Maybe (L Context)
-  , className :: L (Path ClassName)
-  , types     :: [L Type]
-  , methods   :: Maybe (L (WhereClause SimpleDecl))
+  { context   :: Maybe (Located l Context)
+  , className :: Located l (Path ClassName)
+  , types     :: Sequence Type l
+  , methods   :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 -- | Where clause.
-newtype WhereClause d = WhereClause (L [L d])
-  deriving (Show, Eq, Ord, Data, Generic)
+newtype WhereClause d l = WhereClause (Located l (Sequence d))
+  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
