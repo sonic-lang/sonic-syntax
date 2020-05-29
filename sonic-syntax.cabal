@@ -23,7 +23,6 @@ library
 
   -- cabal-fmt: expand src
   exposed-modules:
-    Language.Sonic.Syntax.Comment
     Language.Sonic.Syntax.Declaration
     Language.Sonic.Syntax.Expression
     Language.Sonic.Syntax.Kind
