@@ -8,5 +8,5 @@ import           Data.Data                      ( Data )
 
 data Literal l
   = Integer Integer
-  | Boolean Bool
+  | Char Char
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
