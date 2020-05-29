@@ -23,6 +23,9 @@ library
 
   -- cabal-fmt: expand src
   exposed-modules:
+    Language.Sonic.Parser.Literal
+    Language.Sonic.Parser.Name
+    Language.Sonic.Parser.Path
     Language.Sonic.Parser.Internal.Comment
     Language.Sonic.Parser.Internal.Lexer
     Language.Sonic.Parser.Internal.Error
@@ -45,6 +48,7 @@ library
       base  ^>=4.13
     , text
     , megaparsec ^>=8.0
+    , parser-combinators ^>=1.2
     , mtl ^>=2.2
     , transformers ^>=0.5
     , containers ^>=0.6
