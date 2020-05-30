@@ -1,13 +1,24 @@
+{-# LANGUAGE TypeApplications    #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE DefaultSignatures   #-}
+
 module Language.Sonic.Parser.Name
   ( ctorNameParser
+  , symbolCtorNameParser
   , varNameParser
+  , symbolVarNameParser
   , tyCtorNameParser
+  , symbolTyCtorNameParser
   , tyVarNameParser
   , classNameParser
   , moduleComponentNameParser
   )
 where
 
+import           Data.Proxy                     ( Proxy(..) )
+import           Data.Coerce                    ( Coercible
+                                                , coerce
+                                                )
 import           Data.Text                      ( Text
                                                 , pack
                                                 )
@@ -16,6 +27,7 @@ import qualified Data.Text                     as Text
 import           Data.Char                      ( isUpper
                                                 , isLower
                                                 , isAlphaNum
+                                                , isNumber
                                                 )
 import           Control.Monad                  ( when )
 
@@ -47,51 +59,133 @@ import           Language.Sonic.Syntax.Name     ( CtorName(..)
                                                 , ModuleComponentName(..)
                                                 )
 
-camelCaseReservedWords :: [Text]
-camelCaseReservedWords =
+reservedWords :: [Text]
+reservedWords =
   map pack ["let", "case", "if", "data", "instance", "class", "where"]
 
-check :: Source s => [Text] -> Parse s Text -> Parse s Text
-check rws p = do
+isOperatorChar :: Char -> Bool
+isOperatorChar = (`elem` chars)
+ where
+  chars =
+    [ '!'
+    , '#'
+    , '$'
+    , '%'
+    , '&'
+    , '*'
+    , '+'
+    , '.'
+    , '/'
+    , '<'
+    , '+'
+    , '>'
+    , '?'
+    , '@'
+    , '\\'
+    , '^'
+    , '|'
+    , '-'
+    , '~'
+    , ':'
+    ]
+
+class Name a where
+  description :: Proxy a -> String
+  initialLetter :: Proxy a -> Char -> Bool
+  followingLetter :: Proxy a -> Char -> Bool
+  fromText :: Text -> a l
+
+  default fromText :: Coercible Text (a l) => Text -> (a l)
+  fromText = coerce
+
+newtype Symbol a l = Symbol { unSymbol :: a l }
+
+symbolParser :: Parse s (Symbol a Offset) -> Parse s (a Offset)
+symbolParser p = unSymbol <$> p
+
+instance Name CtorName where
+  description _ = "constructor name"
+  initialLetter _ = isUpper
+  followingLetter _ = isAlphaNum
+
+instance Name VarName where
+  description _ = "variable name"
+  initialLetter _ = isLower
+  followingLetter _ = isAlphaNum
+
+instance Name TyCtorName where
+  description _ = "type constructor name"
+  initialLetter _ = isUpper
+  followingLetter _ = isAlphaNum
+
+instance Name TyVarName where
+  description _ = "type variable name"
+  initialLetter _ = isLower
+  followingLetter _ = isAlphaNum
+
+instance Name ClassName where
+  description _ = "type class name"
+  initialLetter _ = isUpper
+  followingLetter _ = isAlphaNum
+
+instance Name ModuleComponentName where
+  description _ = "module component name"
+  initialLetter _ = isLower
+  followingLetter _ c = isNumber c || isLower c || c == '_'
+
+instance Name (Symbol CtorName) where
+  description _ = "constructor operator symbol"
+  initialLetter _ = (== ':')
+  followingLetter _ = isOperatorChar
+
+instance Name (Symbol VarName) where
+  description _ = "operator symbol"
+  initialLetter _ c = isOperatorChar c && c /= ':'
+  followingLetter _ = isOperatorChar
+
+instance Name (Symbol TyCtorName) where
+  description _ = "type operator symbol"
+  initialLetter _ = isOperatorChar
+  followingLetter _ = isOperatorChar
+
+check :: Source s => Parse s Text -> Parse s Text
+check p = do
   t <- p
-  when (t `elem` rws) $ unexpectedChunk (toChunk t) (Label $ pack "identifier")
+  when (t `elem` reservedWords)
+    $ unexpectedChunk (toChunk t) (Label $ pack "identifier")
   pure t
 
-pascalCase :: Source s => Parse s Text
-pascalCase = do
-  c    <- satisfy isUpper <?> "upper char"
-  rest <- takeWhileP (Just "name") isAlphaNum
-  pure $ Text.cons c (fromChunk rest)
-
-camelCase :: Source s => Parse s Text
-camelCase = check camelCaseReservedWords $ do
-  c    <- satisfy isLower <?> "lower char"
-  rest <- takeWhileP (Just "name") isAlphaNum
-  pure $ Text.cons c (fromChunk rest)
-
-snakeCase :: Source s => Parse s Text
-snakeCase = do
-  c    <- satisfy isLower <?> "lower char"
-  rest <- takeWhileP (Just "name") (isAlphaNum |.| isLower |.| (== '_'))
-  pure $ Text.cons c (fromChunk rest)
-  where a |.| b = \c -> a c || b c
-
+nameParser :: forall a s . (Source s, Name a) => Parse s (a Offset)
+nameParser = fromText <$> lexeme name <?> description (Proxy @a)
+ where
+  name = check $ do
+    c    <- satisfy $ initialLetter (Proxy @a)
+    rest <- takeWhileP Nothing $ followingLetter (Proxy @a)
+    pure . Text.cons c $ fromChunk rest
 
 ctorNameParser :: Source s => Parse s (CtorName Offset)
-ctorNameParser = CtorName <$> lexeme pascalCase <?> "constructor name"
+ctorNameParser = nameParser
+
+symbolCtorNameParser :: Source s => Parse s (CtorName Offset)
+symbolCtorNameParser = symbolParser nameParser
 
 varNameParser :: Source s => Parse s (VarName Offset)
-varNameParser = VarName <$> lexeme camelCase <?> "variable name"
+varNameParser = nameParser
+
+symbolVarNameParser :: Source s => Parse s (VarName Offset)
+symbolVarNameParser = symbolParser nameParser
 
 tyCtorNameParser :: Source s => Parse s (TyCtorName Offset)
-tyCtorNameParser = TyCtorName <$> lexeme pascalCase <?> "type constructor name"
+tyCtorNameParser = nameParser
+
+symbolTyCtorNameParser :: Source s => Parse s (TyCtorName Offset)
+symbolTyCtorNameParser = symbolParser nameParser
 
 tyVarNameParser :: Source s => Parse s (TyVarName Offset)
-tyVarNameParser = TyVarName <$> lexeme camelCase <?> "type variable name"
+tyVarNameParser = nameParser
 
 classNameParser :: Source s => Parse s (ClassName Offset)
-classNameParser = ClassName <$> lexeme pascalCase <?> "type class name"
+classNameParser = nameParser
 
 moduleComponentNameParser :: Source s => Parse s (ModuleComponentName Offset)
-moduleComponentNameParser =
-  ModuleComponentName <$> lexeme snakeCase <?> "module component name"
+moduleComponentNameParser = nameParser

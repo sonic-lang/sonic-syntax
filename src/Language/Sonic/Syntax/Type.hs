@@ -20,13 +20,13 @@ import           Language.Sonic.Syntax.Path     ( Path )
 import           Language.Sonic.Syntax.Kind     ( Kind )
 
 data Type l
-  = Var (Located l (Path TyVarName))
+  = Var (Located l TyVarName)
   | Ctor (Located l (Path TyCtorName))
   | Tuple (Located l (Sequence Type))
   | Apply (Located l Type) (Located l Type)
   | InfixApply (Located l Type) (Located l Infix) (Located l Type)
   | Annotate (Located l Type) (Located l Kind)
-  | Forall (Sequence TyVarBinder l) (Located l Context) (Located l Type)
+  | Forall (Sequence TyVarBinder l) (Maybe (Located l Context)) (Located l Type)
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 newtype Infix l = Infix (Path TyCtorName l)
@@ -43,6 +43,6 @@ newtype Context l = Context (Located l (Sequence Predicate))
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 data Predicate l
-  = Class (Located l (Path ClassName)) [Located l Type]
+  = Class (Located l (Path ClassName)) (Sequence Type l)
   | Equality (Located l Type) (Located l Type)
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

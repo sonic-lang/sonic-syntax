@@ -6,13 +6,19 @@ module Language.Sonic.Parser.Internal.Lexer
   ( space
   , lexeme
   , symbol
+  , word
+  , parens
   )
 where
 
 import           Data.Proxy                     ( Proxy(..) )
 import           Data.Functor                   ( void )
 import qualified Data.Char                     as Char
-                                                ( isSpace )
+                                                ( isSpace
+                                                , isAlphaNum
+                                                )
+import           Control.Applicative.Combinators
+                                                ( between )
 
 import qualified Text.Megaparsec.Char.Lexer    as L
                                                 ( space
@@ -24,6 +30,8 @@ import           Text.Megaparsec                ( takeWhileP
                                                 , takeWhile1P
                                                 , manyTill
                                                 , anySingle
+                                                , notFollowedBy
+                                                , satisfy
                                                 )
 
 import           Language.Sonic.Parser.Internal.Source
@@ -52,6 +60,15 @@ lexeme = L.lexeme space
 
 symbol :: Source s => String -> Parse s ()
 symbol = void . lexeme . chunk
+
+word :: Source s => String -> Parse s ()
+word w = lexeme (chunk w *> notFollowedBy identChar)
+ where
+  identChar = satisfy isIdentChar
+  isIdentChar c = Char.isAlphaNum c || c == '_'
+
+parens :: Source s => Parse s a -> Parse s a
+parens = between (symbol "(") (symbol ")")
 
 lineCommentParser :: Source s => Parse s Comment
 lineCommentParser = do
