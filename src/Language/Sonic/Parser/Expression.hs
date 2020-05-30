@@ -12,8 +12,8 @@ where
 
 import           Control.Applicative            ( Alternative(..) )
 import           Control.Applicative.Combinators
-                                                ( sepBy
-                                                , sepBy1
+                                                ( sepBy1
+                                                , sepEndBy
                                                 , optional
                                                 )
 
@@ -106,7 +106,7 @@ caseExprParser = do
  where
   armsParser = do
     symbol "{"
-    arms <- withOffset caseArmParser `sepBy` symbol ","
+    arms <- withOffset caseArmParser `sepEndBy` symbol ","
     symbol "}"
     pure $ Sequence arms
 
