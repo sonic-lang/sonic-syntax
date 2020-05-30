@@ -28,7 +28,7 @@ data Expr l
   | Tuple (Located l (Sequence Expr))
   | Apply (Located l Expr) (Located l Expr)
   | InfixApply (Located l Expr) (Located l Infix) (Located l Expr)
-  | Lambda (Located l VarName) (Located l Expr)
+  | Lambda (Sequence Pat l) (Located l Expr)
   | Annotate (Located l Expr) (Located l Type)
   | Let (Located l (Sequence LetDefn)) (Located l Expr)
   | Case (Located l Expr) (Located l (Sequence CaseArm))
@@ -48,16 +48,14 @@ data LetDefn l
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 data LetBinder l
-  = LetBinder
-  { name  :: Located l VarName
-  , type_ :: Maybe (Located l Type)
-  }
+  = PatBinder (Located l Pat)
+  | AnnotatedBinder (Located l VarName) (Located l Type)
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 data CaseArm l
   = CaseArm
   { pat   :: Located l Pat
-  , guard :: Located l Guard
+  , guard :: Maybe (Located l Guard)
   , body  :: Located l Expr
   }
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

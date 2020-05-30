@@ -29,7 +29,9 @@ library
     Language.Sonic.Parser.Pattern
     Language.Sonic.Parser.Kind
     Language.Sonic.Parser.Type
+    Language.Sonic.Parser.Expression
     Language.Sonic.Parser.Internal.Operator
+    Language.Sonic.Parser.Internal.Tuple
     Language.Sonic.Parser.Internal.Comment
     Language.Sonic.Parser.Internal.Lexer
     Language.Sonic.Parser.Internal.Error

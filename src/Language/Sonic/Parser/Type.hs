@@ -31,6 +31,8 @@ import           Language.Sonic.Parser.Internal.Lexer
                                                 , parens
                                                 , space
                                                 )
+import           Language.Sonic.Parser.Internal.Tuple
+                                                ( tupleOrParensParser )
 import           Language.Sonic.Parser.Internal.Operator
                                                 ( Operators
                                                 , withOperators
@@ -44,7 +46,6 @@ import           Language.Sonic.Parser.Name     ( tyVarNameParser
                                                 )
 import           Language.Sonic.Parser.Path     ( pathParser )
 import           Language.Sonic.Parser.Kind     ( kindParser )
-import           Language.Sonic.Syntax.Location ( noLoc )
 import           Language.Sonic.Syntax.Sequence ( Sequence(..) )
 import           Language.Sonic.Syntax.Type     ( Type(..)
                                                 , TyVarBinder(..)
@@ -60,17 +61,7 @@ ctorTypeParser :: Source s => Parse s (Type Offset)
 ctorTypeParser = Ctor <$> withOffset (pathParser tyCtorNameParser)
 
 tupleOrParensTypeParser :: Source s => Parse s (Type Offset)
-tupleOrParensTypeParser = do
-  types <- withOffset tupleTypesParser
-  pure $ case noLoc types of
-    Sequence [x] -> noLoc x
-    _            -> Tuple types
- where
-  tupleTypesParser = do
-    symbol "("
-    types <- withOffset typeParser `sepBy` symbol ","
-    symbol ")"
-    pure $ Sequence types
+tupleOrParensTypeParser = tupleOrParensParser Tuple typeParser
 
 forallTypeParser :: Source s => Parse s (Type Offset)
 forallTypeParser = do
