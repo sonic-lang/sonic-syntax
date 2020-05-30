@@ -48,6 +48,7 @@ import           Language.Sonic.Parser.Internal.Location
 import           Language.Sonic.Parser.Internal.Source
                                                 ( Source(..)
                                                 , toChunk
+                                                , fromChunk
                                                 )
 
 data TokenItem s
@@ -57,6 +58,11 @@ data TokenItem s
 
 deriving instance Source s => Eq (TokenItem s)
 deriving instance Source s => Ord (TokenItem s)
+
+instance Source s => Show (TokenItem s) where
+  show (Chunk c)  = "(Chunk " ++ show (fromChunk c) ++ ")"
+  show (Label t)  = "(Label " ++ show t ++ ")"
+  show EndOfInput = "EndOfInput"
 
 chunkItem :: Source s => String -> TokenItem s
 chunkItem = Chunk . toChunk . pack
@@ -70,10 +76,10 @@ data UnexpectedTokenError s
   , expected :: [TokenItem s]
   , found    :: Maybe (TokenItem s)
   }
-  deriving (Eq, Ord, Generic)
+  deriving (Show, Eq, Ord, Generic)
 
 data Error s = UnexpectedToken (NonEmpty (UnexpectedTokenError s))
-  deriving (Eq, Ord, Generic)
+  deriving (Show, Eq, Ord, Generic)
 
 fromErrorItem
   :: forall s . Source s => Parsec.ErrorItem (Parsec.Token s) -> TokenItem s
