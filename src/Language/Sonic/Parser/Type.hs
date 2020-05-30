@@ -69,7 +69,8 @@ forallTypeParser = do
   vars <- Sequence <$> some (withOffset tyVarBinderParser)
   symbol "."
   context <- optional $ withOffset contextParser
-  type_   <- withOffset typeParser
+  symbol "=>"
+  type_ <- withOffset typeParser
   pure $ Forall vars context type_
 
 atomTypeParser :: Source s => Parse s (Type Offset)

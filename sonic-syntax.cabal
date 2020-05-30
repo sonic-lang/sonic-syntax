@@ -30,6 +30,8 @@ library
     Language.Sonic.Parser.Kind
     Language.Sonic.Parser.Type
     Language.Sonic.Parser.Expression
+    Language.Sonic.Parser.Declaration
+    Language.Sonic.Parser.Module
     Language.Sonic.Parser.Internal.Operator
     Language.Sonic.Parser.Internal.Tuple
     Language.Sonic.Parser.Internal.Comment
