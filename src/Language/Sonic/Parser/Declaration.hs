@@ -15,8 +15,8 @@ module Language.Sonic.Parser.Declaration
 where
 import           Control.Applicative            ( Alternative(..) )
 import           Control.Applicative.Combinators
-                                                ( sepBy
-                                                , sepBy1
+                                                ( sepBy1
+                                                , sepEndBy
                                                 , optional
                                                 )
 
@@ -96,12 +96,17 @@ whereClauseParser
   :: Source s => Parse s (d Offset) -> Parse s (WhereClause d Offset)
 whereClauseParser d = do
   word "where"
-  decls <- withOffset $ do
+  decls <- withOffset (manyDecls <|> oneDecl)
+  pure $ WhereClause decls
+ where
+  oneDecl = do
+    decl <- withOffset d
+    pure $ Sequence [decl]
+  manyDecls = do
     symbol "{"
-    ds <- withOffset d `sepBy` symbol ";"
+    ds <- withOffset d `sepEndBy` symbol ";"
     symbol "}"
     pure $ Sequence ds
-  pure $ WhereClause decls
 
 functionClauseParser :: Source s => Parse s (FunctionClause Offset)
 functionClauseParser = do
