@@ -68,8 +68,7 @@ import           Language.Sonic.Syntax.Declaration
 instanceDeclParser :: Source s => Parse s (InstanceDecl Offset)
 instanceDeclParser = do
   word "instance"
-  context <- optional $ withOffset contextParser
-  symbol "=>"
+  context   <- optional . try $ withOffset contextParser <* symbol "=>"
   className <- withOffset $ pathParser classNameParser
   types     <- Sequence <$> many (withOffset typeParser)
   methods   <- optional . withOffset $ whereClauseParser simpleDeclParser
@@ -78,8 +77,7 @@ instanceDeclParser = do
 classDeclParser :: Source s => Parse s (ClassDecl Offset)
 classDeclParser = do
   word "class"
-  context <- optional $ withOffset contextParser
-  symbol "<="
+  context   <- optional . try $ withOffset contextParser <* symbol "<="
   className <- withOffset classNameParser
   vars      <- Sequence <$> many (withOffset tyVarBinderParser)
   methods   <- optional . withOffset $ whereClauseParser simpleDeclParser
