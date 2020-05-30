@@ -108,10 +108,12 @@ class Name a where
   default fromText :: Coercible Text (a l) => Text -> (a l)
   fromText = coerce
 
-newtype Symbol a l = Symbol { unSymbol :: a l }
+newtype Symbol a l = Symbol (a l)
 
-symbolParser :: Parse s (Symbol a Offset) -> Parse s (a Offset)
-symbolParser p = unSymbol <$> p
+symbolParser :: Source s => Parse s (Symbol a Offset) -> Parse s (a Offset)
+symbolParser p = do
+  Symbol s <- p
+  pure s
 
 instance Name CtorName where
   description _ = "constructor name"
