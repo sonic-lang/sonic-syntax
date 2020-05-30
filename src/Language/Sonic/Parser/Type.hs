@@ -15,7 +15,9 @@ import           Control.Applicative.Combinators
                                                 , optional
                                                 )
 
-import           Text.Megaparsec                ( (<?>) )
+import           Text.Megaparsec                ( try
+                                                , (<?>)
+                                                )
 
 import           Language.Sonic.Parser.Internal.Source
                                                 ( Source )
@@ -74,10 +76,10 @@ forallTypeParser = do
 
 atomTypeParser :: Source s => Parse s (Type Offset)
 atomTypeParser =
-  varTypeParser
-    <|> ctorTypeParser
-    <|> tupleOrParensTypeParser
+  tupleOrParensTypeParser
     <|> forallTypeParser
+    <|> try varTypeParser
+    <|> ctorTypeParser
 
 typeInfixParser :: Source s => Parse s (TypeInfix Offset)
 typeInfixParser = TypeInfix <$> pathParser symbolTyCtorNameParser
@@ -85,8 +87,8 @@ typeInfixParser = TypeInfix <$> pathParser symbolTyCtorNameParser
 operators :: Source s => [Operators s Type]
 operators =
   [ infixLeftOp (Apply <$ space)
-  , postfixOp (flip Annotate <$ symbol "::" <*> withOffset kindParser)
   , infixLeftOp (flip InfixApply <$> withOffset typeInfixParser)
+  , postfixOp (flip Annotate <$ symbol "::" <*> withOffset kindParser)
   ]
 
 typeParser :: Source s => Parse s (Type Offset)
@@ -131,4 +133,4 @@ equalityPredicateParser = do
 
 predicateParser :: Source s => Parse s (Predicate Offset)
 predicateParser =
-  equalityPredicateParser <|> classPredicateParser <?> "predicate"
+  try equalityPredicateParser <|> classPredicateParser <?> "predicate"

@@ -17,7 +17,9 @@ import           Control.Applicative.Combinators
                                                 , optional
                                                 )
 
-import           Text.Megaparsec                ( (<?>) )
+import           Text.Megaparsec                ( try
+                                                , (<?>)
+                                                )
 
 import           Language.Sonic.Parser.Internal.Source
                                                 ( Source )
@@ -112,19 +114,19 @@ caseExprParser = do
 
 atomExprParser :: Source s => Parse s (Expr Offset)
 atomExprParser =
-  varExprParser
-    <|> ctorExprParser
-    <|> literalExprParser
+  literalExprParser
     <|> tupleOrParensExprParser
     <|> lambdaExprParser
     <|> letExprParser
     <|> caseExprParser
+    <|> try varExprParser
+    <|> ctorExprParser
 
 operators :: Source s => [Operators s Expr]
 operators =
   [ infixLeftOp (Apply <$ space)
-  , postfixOp (flip Annotate <$ symbol "::" <*> withOffset typeParser)
   , infixLeftOp (flip InfixApply <$> withOffset exprInfixParser)
+  , postfixOp (flip Annotate <$ symbol "::" <*> withOffset typeParser)
   ]
 
 exprParser :: Source s => Parse s (Expr Offset)

@@ -37,19 +37,19 @@ import           Language.Sonic.Syntax.Path     ( PathPrefix(..)
 pathPrefixParser :: Source s => Parse s (PathPrefix Offset)
 pathPrefixParser = matchToken match expected
  where
-  expected = [chunkItem ".", chunkItem ":", chunkItem "#"]
+  expected = [chunkItem ".", chunkItem "$", chunkItem "#"]
   match '.' = Just Dot
-  match ':' = Just Colon
+  match '$' = Just Dollar
   match '#' = Just Hash
   match _   = Nothing
 
 modulePathParser :: Source s => Parse s (Sequence ModuleComponentName Offset)
 modulePathParser =
-  Sequence <$> some (try $ withOffset moduleComponentNameParser <* symbol ":")
+  Sequence <$> some (try $ withOffset moduleComponentNameParser <* symbol ".")
 
 pathParser :: Source s => Parse s (n Offset) -> Parse s (Path n Offset)
 pathParser n = do
-  prefix     <- optional (withOffset pathPrefixParser)
+  prefix     <- optional $ withOffset pathPrefixParser
   modulePath <- optional $ withOffset modulePathParser
   name       <- withOffset n
   pure Path { prefix, modulePath, name }

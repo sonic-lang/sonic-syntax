@@ -33,6 +33,7 @@ import           Control.Monad                  ( when )
 
 import           Text.Megaparsec                ( takeWhileP
                                                 , satisfy
+                                                , try
                                                 , (<?>)
                                                 )
 
@@ -44,7 +45,7 @@ import           Language.Sonic.Parser.Internal.Source
 import           Language.Sonic.Parser.Internal.Location
                                                 ( Offset )
 import           Language.Sonic.Parser.Internal.Error
-                                                ( TokenItem(..) )
+                                                ( labelItem )
 import           Language.Sonic.Parser.Internal.Parse
                                                 ( Parse
                                                 , unexpectedChunk
@@ -60,33 +61,42 @@ import           Language.Sonic.Syntax.Name     ( CtorName(..)
                                                 )
 
 reservedWords :: [Text]
-reservedWords =
-  map pack ["let", "case", "if", "data", "instance", "class", "where"]
+reservedWords = map
+  pack
+  [ "let"
+  , "in"
+  , "case"
+  , "if"
+  , "data"
+  , "instance"
+  , "class"
+  , "where"
+  , "Type"
+  , "forall"
+  , "::"
+  , "~"
+  ]
 
 isOperatorChar :: Char -> Bool
 isOperatorChar = (`elem` chars)
  where
   chars =
     [ '!'
-    , '#'
-    , '$'
     , '%'
     , '&'
     , '*'
     , '+'
-    , '.'
     , '/'
     , '<'
     , '+'
     , '>'
     , '?'
-    , '@'
     , '\\'
     , '^'
-    , '|'
     , '-'
     , '~'
     , ':'
+    , '@'
     ]
 
 class Name a where
@@ -152,11 +162,11 @@ check :: Source s => Parse s Text -> Parse s Text
 check p = do
   t <- p
   when (t `elem` reservedWords)
-    $ unexpectedChunk (toChunk t) (Label $ pack "identifier")
+    $ unexpectedChunk (toChunk t) (labelItem "identifier")
   pure t
 
 nameParser :: forall a s . (Source s, Name a) => Parse s (a Offset)
-nameParser = fromText <$> lexeme name <?> description (Proxy @a)
+nameParser = fromText <$> lexeme (try name) <?> description (Proxy @a)
  where
   name = check $ do
     c    <- satisfy $ initialLetter (Proxy @a)

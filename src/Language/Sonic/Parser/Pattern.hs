@@ -49,7 +49,7 @@ patParser :: Source s => Parse s (Pat Offset)
 patParser =
   wildcardPatParser
     <|> literalPatParser
-    <|> varPatParser
     <|> tupleOrParensPatParser
     <|> ctorPatParser
+    <|> varPatParser
     <?> "pattern"

@@ -21,6 +21,6 @@ data Path n l
 
 data PathPrefix l
   = Dot
-  | Colon
+  | Dollar
   | Hash
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
