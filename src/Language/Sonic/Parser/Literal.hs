@@ -40,6 +40,7 @@ char :: Source s => Parse s Char
 char = do
   void $ single '\''
   cs <- unpack . fromChunk <$> takeWhile1P (Just "char") (/= '\'')
+  void $ single '\''
   case Char.readLitChar cs of
     (c, ""   ) : _ -> pure c
     (_, h : _) : _ -> unexpectedToken h (chunkItem "'")
