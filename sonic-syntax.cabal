@@ -21,8 +21,21 @@ extra-source-files:
 library
   hs-source-dirs:     src
 
-  -- cabal-fmt: expand src
   exposed-modules:
+    Language.Sonic.Parser
+    Language.Sonic.Syntax.Declaration
+    Language.Sonic.Syntax.Expression
+    Language.Sonic.Syntax.Kind
+    Language.Sonic.Syntax.Literal
+    Language.Sonic.Syntax.Location
+    Language.Sonic.Syntax.Module
+    Language.Sonic.Syntax.Name
+    Language.Sonic.Syntax.Path
+    Language.Sonic.Syntax.Pattern
+    Language.Sonic.Syntax.Sequence
+    Language.Sonic.Syntax.Type
+
+  other-modules:
     Language.Sonic.Parser.Literal
     Language.Sonic.Parser.Name
     Language.Sonic.Parser.Path
@@ -41,17 +54,6 @@ library
     Language.Sonic.Parser.Internal.Location
     Language.Sonic.Parser.Internal.Parse
     Language.Sonic.Parser.Internal.Source
-    Language.Sonic.Syntax.Declaration
-    Language.Sonic.Syntax.Expression
-    Language.Sonic.Syntax.Kind
-    Language.Sonic.Syntax.Literal
-    Language.Sonic.Syntax.Location
-    Language.Sonic.Syntax.Module
-    Language.Sonic.Syntax.Name
-    Language.Sonic.Syntax.Path
-    Language.Sonic.Syntax.Pattern
-    Language.Sonic.Syntax.Sequence
-    Language.Sonic.Syntax.Type
 
   build-depends:
       base  ^>=4.13
