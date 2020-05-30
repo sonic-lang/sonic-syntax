@@ -14,7 +14,7 @@ import           Language.Sonic.Syntax.Location ( Located )
 data Path n l
   = Path
   { prefix     :: Maybe (Located l PathPrefix)
-  , modulePath :: Located l (Sequence ModuleComponentName)
+  , modulePath :: Maybe (Located l (Sequence ModuleComponentName))
   , name       :: Located l n
   }
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)

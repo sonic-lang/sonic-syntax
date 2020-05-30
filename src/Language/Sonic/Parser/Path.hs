@@ -7,10 +7,11 @@ module Language.Sonic.Parser.Path
   )
 where
 
+import           Control.Applicative            ( some )
 import           Control.Applicative.Combinators
-                                                ( sepBy
-                                                , optional
-                                                )
+                                                ( optional )
+
+import           Text.Megaparsec                ( try )
 
 import           Language.Sonic.Parser.Internal.Source
                                                 ( Source )
@@ -44,11 +45,11 @@ pathPrefixParser = matchToken match expected
 
 modulePathParser :: Source s => Parse s (Sequence ModuleComponentName Offset)
 modulePathParser =
-  Sequence <$> withOffset moduleComponentNameParser `sepBy` symbol "::"
+  Sequence <$> some (try $ withOffset moduleComponentNameParser <* symbol ":")
 
 pathParser :: Source s => Parse s (n Offset) -> Parse s (Path n Offset)
 pathParser n = do
   prefix     <- optional (withOffset pathPrefixParser)
-  modulePath <- withOffset modulePathParser
+  modulePath <- optional $ withOffset modulePathParser
   name       <- withOffset n
   pure Path { prefix, modulePath, name }
