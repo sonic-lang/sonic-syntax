@@ -159,12 +159,12 @@ simpleDeclParser =
 
 declParser :: Source s => Parse s (Decl Offset)
 declParser =
-  Simple
-    <$> simpleDeclParser
-    <|> Data
+  Data
     <$> dataDeclParser
     <|> Class
     <$> classDeclParser
     <|> Instance
     <$> instanceDeclParser
+    <|> Simple
+    <$> simpleDeclParser
     <?> "declaration"
