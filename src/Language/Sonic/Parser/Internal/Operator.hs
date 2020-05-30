@@ -112,8 +112,9 @@ addPrecLevel atom table = do
     op <- option noLoc $ choiceOp prefix
     op <$> withOffset atom
   post = do
+    x  <- withOffset pre
     op <- option noLoc $ choiceOp postfix
-    op <$> withOffset pre
+    pure $ op x
   right lhs = do
     op  <- choiceOp infixRight
     rhs <- withOffset $ do
