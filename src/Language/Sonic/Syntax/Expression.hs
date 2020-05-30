@@ -35,9 +35,8 @@ data Expr l
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 data ExprInfix l
-  = RawVar (Path VarName l)
-  | RawCtor (Path CtorName l)
-  | Quoted (Located l Expr)
+  = VarInfix (Path VarName l)
+  | CtorInfix (Path CtorName l)
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 data LetDefn l

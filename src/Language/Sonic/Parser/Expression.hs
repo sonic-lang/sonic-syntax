@@ -131,15 +131,19 @@ exprParser :: Source s => Parse s (Expr Offset)
 exprParser = withOperators operators atomExprParser
 
 exprInfixParser :: Source s => Parse s (ExprInfix Offset)
-exprInfixParser = quoted <|> var <|> ctor <?> "infix operator"
+exprInfixParser =
+  quoted
+    <|> try (var symbolVarNameParser)
+    <|> ctor symbolCtorNameParser
+    <?> "infix operator"
  where
   quoted = do
     symbol "`"
-    e <- withOffset exprParser
+    e <- try (var varNameParser) <|> ctor ctorNameParser
     symbol "`"
-    pure $ Quoted e
-  var  = RawVar <$> pathParser symbolVarNameParser
-  ctor = RawCtor <$> pathParser symbolCtorNameParser
+    pure e
+  var n = VarInfix <$> pathParser n
+  ctor n = CtorInfix <$> pathParser n
 
 letDefnParser :: Source s => Parse s (LetDefn Offset)
 letDefnParser = do
