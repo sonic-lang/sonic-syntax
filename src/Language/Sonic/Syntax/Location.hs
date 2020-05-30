@@ -1,6 +1,7 @@
 module Language.Sonic.Syntax.Location
   ( Located
   , L(..)
+  , noLoc
   )
 where
 
@@ -16,3 +17,6 @@ data L a l
   , end     :: l
   }
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+
+noLoc :: Located l a -> a l
+noLoc (L _ a _) = a

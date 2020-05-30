@@ -26,6 +26,7 @@ library
     Language.Sonic.Parser.Literal
     Language.Sonic.Parser.Name
     Language.Sonic.Parser.Path
+    Language.Sonic.Parser.Pattern
     Language.Sonic.Parser.Internal.Comment
     Language.Sonic.Parser.Internal.Lexer
     Language.Sonic.Parser.Internal.Error
