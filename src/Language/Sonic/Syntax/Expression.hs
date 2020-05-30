@@ -1,6 +1,6 @@
 module Language.Sonic.Syntax.Expression
   ( Expr(..)
-  , Infix(..)
+  , ExprInfix(..)
   , LetDefn(..)
   , LetBinder(..)
   , CaseArm(..)
@@ -27,14 +27,14 @@ data Expr l
   | Literal (Located l Literal)
   | Tuple (Located l (Sequence Expr))
   | Apply (Located l Expr) (Located l Expr)
-  | InfixApply (Located l Expr) (Located l Infix) (Located l Expr)
+  | InfixApply (Located l Expr) (Located l ExprInfix) (Located l Expr)
   | Lambda (Sequence Pat l) (Located l Expr)
   | Annotate (Located l Expr) (Located l Type)
   | Let (Located l (Sequence LetDefn)) (Located l Expr)
   | Case (Located l Expr) (Located l (Sequence CaseArm))
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-data Infix l
+data ExprInfix l
   = RawVar (Path VarName l)
   | RawCtor (Path CtorName l)
   | Quoted (Located l Expr)

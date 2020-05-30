@@ -2,7 +2,7 @@
 
 module Language.Sonic.Parser.Type
   ( typeParser
-  , infixParser
+  , typeInfixParser
   , tyVarBinderParser
   , contextParser
   , predicateParser
@@ -49,7 +49,7 @@ import           Language.Sonic.Parser.Kind     ( kindParser )
 import           Language.Sonic.Syntax.Sequence ( Sequence(..) )
 import           Language.Sonic.Syntax.Type     ( Type(..)
                                                 , TyVarBinder(..)
-                                                , Infix(..)
+                                                , TypeInfix(..)
                                                 , Context(..)
                                                 , Predicate(..)
                                                 )
@@ -80,14 +80,14 @@ atomTypeParser =
     <|> tupleOrParensTypeParser
     <|> forallTypeParser
 
-infixParser :: Source s => Parse s (Infix Offset)
-infixParser = Infix <$> pathParser symbolTyCtorNameParser
+typeInfixParser :: Source s => Parse s (TypeInfix Offset)
+typeInfixParser = TypeInfix <$> pathParser symbolTyCtorNameParser
 
 operators :: Source s => [Operators s Type]
 operators =
   [ infixLeftOp (Apply <$ space)
   , postfixOp (flip Annotate <$ symbol "::" <*> withOffset kindParser)
-  , infixLeftOp (flip InfixApply <$> withOffset infixParser)
+  , infixLeftOp (flip InfixApply <$> withOffset typeInfixParser)
   ]
 
 typeParser :: Source s => Parse s (Type Offset)

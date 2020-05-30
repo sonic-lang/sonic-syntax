@@ -89,11 +89,11 @@ runParse
   :: (Source s, MonadError (Error s) m, Traversable a)
   => Parse s (Located Offset a)
   -> s
-  -> m (Located Position a, s, [Comment])
+  -> m (Located Position a, [Comment], s)
 runParse parser content = case Parsec.runParser' parsec initState of
   (_, Left bundle) -> throwError $ fromParseErrorBundle bundle
   (Parsec.State { Parsec.stateInput }, Right (a, comments)) ->
-    pure (attachPosition initPosState a, stateInput, comments)
+    pure (attachPosition initPosState a, comments, stateInput)
  where
   parsec    = runStateT (unParse parser) []
   initState = Parsec.State { stateInput       = content

@@ -2,7 +2,7 @@
 
 module Language.Sonic.Parser.Expression
   ( exprParser
-  , infixParser
+  , exprInfixParser
   , letDefnParser
   , letBinderParser
   , caseArmParser
@@ -52,7 +52,7 @@ import           Language.Sonic.Parser.Pattern  ( patParser )
 import           Language.Sonic.Syntax.Sequence ( Sequence(..) )
 import           Language.Sonic.Syntax.Expression
                                                 ( Expr(..)
-                                                , Infix(..)
+                                                , ExprInfix(..)
                                                 , LetDefn(..)
                                                 , LetBinder(..)
                                                 , CaseArm(..)
@@ -124,14 +124,14 @@ operators :: Source s => [Operators s Expr]
 operators =
   [ infixLeftOp (Apply <$ space)
   , postfixOp (flip Annotate <$ symbol "::" <*> withOffset typeParser)
-  , infixLeftOp (flip InfixApply <$> withOffset infixParser)
+  , infixLeftOp (flip InfixApply <$> withOffset exprInfixParser)
   ]
 
 exprParser :: Source s => Parse s (Expr Offset)
 exprParser = withOperators operators atomExprParser
 
-infixParser :: Source s => Parse s (Infix Offset)
-infixParser = quoted <|> var <|> ctor <?> "infix operator"
+exprInfixParser :: Source s => Parse s (ExprInfix Offset)
+exprInfixParser = quoted <|> var <|> ctor <?> "infix operator"
  where
   quoted = do
     symbol "`"

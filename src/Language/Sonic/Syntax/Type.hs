@@ -1,6 +1,6 @@
 module Language.Sonic.Syntax.Type
   ( Type(..)
-  , Infix(..)
+  , TypeInfix(..)
   , TyVarBinder(..)
   , Context(..)
   , Predicate(..)
@@ -24,12 +24,12 @@ data Type l
   | Ctor (Located l (Path TyCtorName))
   | Tuple (Located l (Sequence Type))
   | Apply (Located l Type) (Located l Type)
-  | InfixApply (Located l Type) (Located l Infix) (Located l Type)
+  | InfixApply (Located l Type) (Located l TypeInfix) (Located l Type)
   | Annotate (Located l Type) (Located l Kind)
   | Forall (Sequence TyVarBinder l) (Maybe (Located l Context)) (Located l Type)
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
-newtype Infix l = Infix (Path TyCtorName l)
+newtype TypeInfix l = TypeInfix (Path TyCtorName l)
   deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
 
 data TyVarBinder l
