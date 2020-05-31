@@ -1,6 +1,7 @@
 {-# LANGUAGE TypeApplications    #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE DefaultSignatures   #-}
+{-# LANGUAGE OverloadedStrings   #-}
 
 module Language.Sonic.Parser.Name
   ( ctorNameParser
@@ -45,7 +46,7 @@ import           Language.Sonic.Parser.Internal.Source
 import           Language.Sonic.Parser.Internal.Location
                                                 ( Offset )
 import           Language.Sonic.Parser.Internal.Error
-                                                ( labelItem )
+                                                ( TokenItem(..) )
 import           Language.Sonic.Parser.Internal.Parse
                                                 ( Parse
                                                 , unexpectedChunk
@@ -164,7 +165,7 @@ check :: Source s => Parse s Text -> Parse s Text
 check p = do
   t <- p
   when (t `elem` reservedWords)
-    $ unexpectedChunk (toChunk t) (labelItem "identifier")
+    $ unexpectedChunk (toChunk t) (LabelItem "identifier")
   pure t
 
 nameParser :: forall a s . (Source s, Name a) => Parse s (a Offset)

@@ -1,4 +1,5 @@
-{-# LANGUAGE NamedFieldPuns #-}
+{-# LANGUAGE NamedFieldPuns    #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Language.Sonic.Parser.Path
   ( pathPrefixParser
@@ -20,7 +21,7 @@ import           Language.Sonic.Parser.Internal.Location
                                                 , withOffset
                                                 )
 import           Language.Sonic.Parser.Internal.Error
-                                                ( chunkItem )
+                                                ( TokenItem(..) )
 import           Language.Sonic.Parser.Internal.Parse
                                                 ( Parse
                                                 , matchToken
@@ -37,7 +38,7 @@ import           Language.Sonic.Syntax.Path     ( PathPrefix(..)
 pathPrefixParser :: Source s => Parse s (PathPrefix Offset)
 pathPrefixParser = matchToken match expected
  where
-  expected = [chunkItem ".", chunkItem "$", chunkItem "#"]
+  expected = [ChunkItem ".", ChunkItem "$", ChunkItem "#"]
   match '.' = Just Dot
   match '$' = Just Dollar
   match '#' = Just Hash

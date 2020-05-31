@@ -13,6 +13,7 @@ module Language.Sonic.Parser
   -- * Errors
   , Error(..)
   , UnexpectedTokenError(..)
+  , TokenItem(..)
   )
 where
 
@@ -29,6 +30,7 @@ import           Language.Sonic.Parser.Internal.Location
 import           Language.Sonic.Parser.Internal.Error
                                                 ( Error(..)
                                                 , UnexpectedTokenError(..)
+                                                , TokenItem(..)
                                                 )
 import           Language.Sonic.Parser.Internal.Parse
                                                 ( runParse )

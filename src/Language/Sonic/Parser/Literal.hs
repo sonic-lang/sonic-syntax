@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Language.Sonic.Parser.Literal
   ( literalParser
   )
@@ -18,9 +20,7 @@ import           Text.Megaparsec                ( takeWhile1P
 import           Language.Sonic.Parser.Internal.Location
                                                 ( Offset )
 import           Language.Sonic.Parser.Internal.Error
-                                                ( chunkItem
-                                                , labelItem
-                                                )
+                                                ( TokenItem(..) )
 import           Language.Sonic.Parser.Internal.Parse
                                                 ( Parse
                                                 , unexpectedToken
@@ -43,8 +43,8 @@ char = do
   void $ single '\''
   case Char.readLitChar cs of
     (c, ""   ) : _ -> pure c
-    (_, h : _) : _ -> unexpectedToken h (chunkItem "'")
-    []             -> unexpectedToken (head cs) (labelItem "valid char")
+    (_, h : _) : _ -> unexpectedToken h (ChunkItem "'")
+    []             -> unexpectedToken (head cs) (LabelItem "valid char")
 
 literalParser :: Source s => Parse s (Literal Offset)
 literalParser = Char <$> lexeme char <|> Integer <$> lexeme integer

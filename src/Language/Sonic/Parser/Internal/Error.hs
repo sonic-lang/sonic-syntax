@@ -2,15 +2,15 @@
 {-# LANGUAGE TypeApplications    #-}
 {-# LANGUAGE NamedFieldPuns      #-}
 {-# LANGUAGE StandaloneDeriving  #-}
+{-# LANGUAGE PatternSynonyms     #-}
+{-# LANGUAGE ViewPatterns        #-}
 
 module Language.Sonic.Parser.Internal.Error
   ( Error(..)
   , UnexpectedTokenError(..)
-  , TokenItem(..)
+  , TokenItem(ChunkItem, LabelItem, EndItem)
   , toErrorItem
   , fromErrorItem
-  , chunkItem
-  , labelItem
   , fromParseErrorBundle
   )
 where
@@ -64,11 +64,16 @@ instance Source s => Show (TokenItem s) where
   show (Label t)  = "(Label " ++ show t ++ ")"
   show EndOfInput = "EndOfInput"
 
-chunkItem :: Source s => String -> TokenItem s
-chunkItem = Chunk . toChunk . pack
+pattern ChunkItem :: Source s => Text -> TokenItem s
+pattern ChunkItem c <- (Chunk (fromChunk -> c))
+  where
+    ChunkItem c = Chunk (toChunk c)
 
-labelItem :: String -> TokenItem s
-labelItem = Label . pack
+pattern LabelItem :: Text -> TokenItem s
+pattern LabelItem t = Label t
+
+pattern EndItem :: TokenItem s
+pattern EndItem = EndOfInput
 
 data UnexpectedTokenError s
   = UnexpectedTokenError
