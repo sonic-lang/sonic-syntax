@@ -3,10 +3,12 @@ module Language.Sonic.Syntax.Literal
   )
 where
 
-import           GHC.Generics                   ( Generic )
+import           GHC.Generics                   ( Generic
+                                                , Generic1
+                                                )
 import           Data.Data                      ( Data )
 
 data Literal l
   = Integer Integer
   | Char Char
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

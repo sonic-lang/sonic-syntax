@@ -3,7 +3,9 @@ module Language.Sonic.Syntax.Pattern
   )
 where
 
-import           GHC.Generics                   ( Generic )
+import           GHC.Generics                   ( Generic
+                                                , Generic1
+                                                )
 import           Data.Data                      ( Data )
 
 import           Language.Sonic.Syntax.Sequence ( Sequence )
@@ -20,4 +22,4 @@ data Pat l
   | Var (Located l VarName)
   | Tuple (Located l (Sequence Pat))
   | Ctor (Located l (Path CtorName)) (Sequence Pat l)
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

@@ -4,7 +4,9 @@ module Language.Sonic.Parser.Parsable
   )
 where
 
-import           GHC.Generics                   ( Generic )
+import           GHC.Generics                   ( Generic
+                                                , Generic1
+                                                )
 import           Data.Data                      ( Data )
 
 import           Language.Sonic.Parser.Internal.Source
@@ -39,7 +41,7 @@ class Traversable a => Parsable a where
 
 -- | Wrapper to parse names as infix symbols
 newtype Symbol a l = Symbol { unSymbol :: a l }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- Name
 

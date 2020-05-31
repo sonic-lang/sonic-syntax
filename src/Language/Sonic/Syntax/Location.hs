@@ -5,7 +5,9 @@ module Language.Sonic.Syntax.Location
   )
 where
 
-import           GHC.Generics                   ( Generic )
+import           GHC.Generics                   ( Generic
+                                                , Generic1
+                                                )
 import           Data.Data                      ( Data )
 
 type Located l a = L a l
@@ -16,7 +18,7 @@ data L a l
   , content :: a l
   , end     :: l
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 noLoc :: Located l a -> a l
 noLoc (L _ a _) = a

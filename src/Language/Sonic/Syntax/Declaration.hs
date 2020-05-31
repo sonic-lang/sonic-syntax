@@ -12,7 +12,9 @@ module Language.Sonic.Syntax.Declaration
   )
 where
 
-import           GHC.Generics                   ( Generic )
+import           GHC.Generics                   ( Generic
+                                                , Generic1
+                                                )
 import           Data.Data                      ( Data )
 
 import           Language.Sonic.Syntax.Sequence ( Sequence )
@@ -39,14 +41,14 @@ data Decl l
   | Data (DataDecl l)
   | Class (ClassDecl l)
   | Instance (InstanceDecl l)
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Simple declaration, which is either a name signature declaration or a value declaration.
 data SimpleDecl l
   = Signature (SignatureDecl VarName l)
   | Value (ValueDecl l)
   | Function (FunctionDecl l)
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Name signature declaration.
 data SignatureDecl name l
@@ -54,7 +56,7 @@ data SignatureDecl name l
   { name  :: Located l name
   , type_ :: Located l Type
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Value declaration.
 data ValueDecl l
@@ -63,7 +65,7 @@ data ValueDecl l
   , body     :: Located l Expr
   , bindings :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Function declaration.
 data FunctionDecl l
@@ -71,7 +73,7 @@ data FunctionDecl l
   { name    :: Located l VarName
   , clauses :: Located l (Sequence FunctionClause)
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Clause in function declaration.
 data FunctionClause l
@@ -81,7 +83,7 @@ data FunctionClause l
   , body     :: Located l Expr
   , bindings :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Data type declaration.
 data DataDecl l
@@ -90,7 +92,7 @@ data DataDecl l
   , vars      :: Sequence TyVarBinder l
   , ctors     :: Maybe (Located l (WhereClause (SignatureDecl CtorName)))
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Type class declaration.
 data ClassDecl l
@@ -100,7 +102,7 @@ data ClassDecl l
   , vars      :: Sequence TyVarBinder l
   , methods   :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Type class instance declaration.
 data InstanceDecl l
@@ -110,8 +112,8 @@ data InstanceDecl l
   , types     :: Sequence Type l
   , methods   :: Maybe (Located l (WhereClause SimpleDecl))
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Where clause.
 newtype WhereClause d l = WhereClause (Located l (Sequence d))
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

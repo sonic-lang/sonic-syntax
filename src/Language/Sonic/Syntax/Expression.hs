@@ -8,7 +8,9 @@ module Language.Sonic.Syntax.Expression
   )
 where
 
-import           GHC.Generics                   ( Generic )
+import           GHC.Generics                   ( Generic
+                                                , Generic1
+                                                )
 import           Data.Data                      ( Data )
 
 import           Language.Sonic.Syntax.Sequence ( Sequence )
@@ -32,24 +34,24 @@ data Expr l
   | Annotate (Located l Expr) (Located l Type)
   | Let (Located l (Sequence LetDefn)) (Located l Expr)
   | Case (Located l Expr) (Located l (Sequence CaseArm))
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 data ExprInfix l
   = VarInfix (Path VarName l)
   | CtorInfix (Path CtorName l)
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 data LetDefn l
   = LetDefn
   { binder  :: Located l LetBinder
   , body    :: Located l Expr
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 data LetBinder l
   = PatBinder (Located l Pat)
   | AnnotatedBinder (Located l VarName) (Located l Type)
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 data CaseArm l
   = CaseArm
@@ -57,7 +59,7 @@ data CaseArm l
   , guard :: Maybe (Located l Guard)
   , body  :: Located l Expr
   }
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 newtype Guard l = Guard (Located l Expr)
-  deriving (Show, Eq, Ord, Data, Generic, Functor, Foldable, Traversable)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

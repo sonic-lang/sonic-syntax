@@ -16,4 +16,4 @@ data Comment
   , content     :: Text
   , location    :: (Position, Position)
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Data, Generic)

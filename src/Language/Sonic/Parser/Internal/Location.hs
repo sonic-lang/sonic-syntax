@@ -42,7 +42,7 @@ data Position
   { line   :: Natural
   , column :: Natural
   }
-  deriving (Show, Eq, Ord, Data, Generic)
+  deriving (Show, Eq, Data, Generic)
 
 fromSourcePos :: Parsec.SourcePos -> Position
 fromSourcePos Parsec.SourcePos { Parsec.sourceLine, Parsec.sourceColumn } =

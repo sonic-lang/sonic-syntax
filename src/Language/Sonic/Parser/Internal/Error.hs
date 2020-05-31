@@ -57,7 +57,6 @@ data TokenItem s
   | EndOfInput
 
 deriving instance Source s => Eq (TokenItem s)
-deriving instance Source s => Ord (TokenItem s)
 
 instance Source s => Show (TokenItem s) where
   show (Chunk c)  = "(Chunk " ++ show (fromChunk c) ++ ")"
@@ -81,10 +80,10 @@ data UnexpectedTokenError s
   , expected :: [TokenItem s]
   , found    :: Maybe (TokenItem s)
   }
-  deriving (Show, Eq, Ord, Generic)
+  deriving (Show, Eq, Generic)
 
 data Error s = UnexpectedToken (NonEmpty (UnexpectedTokenError s))
-  deriving (Show, Eq, Ord, Generic)
+  deriving (Show, Eq, Generic)
 
 fromErrorItem
   :: forall s . Source s => Parsec.ErrorItem (Parsec.Token s) -> TokenItem s
