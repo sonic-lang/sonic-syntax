@@ -155,7 +155,7 @@ letDefnParser = do
   pure LetDefn { binder, body }
 
 letBinderParser :: Source s => Parse s (LetBinder Offset)
-letBinderParser = pat <|> annotated
+letBinderParser = try annotated <|> pat
  where
   pat       = PatBinder <$> withOffset patParser
   annotated = do
