@@ -43,6 +43,7 @@ import           Language.Sonic.Parser.Name     ( varNameParser
                                                 )
 import           Language.Sonic.Parser.Path     ( pathParser )
 import           Language.Sonic.Parser.Type     ( typeParser
+                                                , atomTypeParser
                                                 , contextParser
                                                 , tyVarBinderParser
                                                 )
@@ -70,7 +71,7 @@ instanceDeclParser = do
   word "instance"
   context   <- optional . try $ withOffset contextParser <* symbol "=>"
   className <- withOffset $ pathParser classNameParser
-  types     <- Sequence <$> many (withOffset typeParser)
+  types     <- Sequence <$> many (withOffset atomTypeParser)
   methods   <- optional . withOffset $ whereClauseParser simpleDeclParser
   pure InstanceDecl { context, className, types, methods }
 

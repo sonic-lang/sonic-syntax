@@ -2,6 +2,7 @@
 
 module Language.Sonic.Parser.Type
   ( typeParser
+  , atomTypeParser
   , typeInfixParser
   , tyVarBinderParser
   , contextParser
@@ -121,7 +122,7 @@ contextParser = Context <$> withOffset (singleton <|> tuple) <?> "context"
 classPredicateParser :: Source s => Parse s (Predicate Offset)
 classPredicateParser = do
   className <- withOffset (pathParser classNameParser)
-  types     <- many $ withOffset typeParser
+  types     <- many $ withOffset atomTypeParser
   pure . Class className $ Sequence types
 
 equalityPredicateParser :: Source s => Parse s (Predicate Offset)
