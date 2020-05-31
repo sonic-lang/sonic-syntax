@@ -59,7 +59,7 @@ instance Parsable TyCtorName where
   parser = tyCtorNameParser
 
 instance Parsable (Symbol TyCtorName) where
-  parser = Symbol <$> tyCtorNameParser
+  parser = Symbol <$> symbolTyCtorNameParser
 
 instance Parsable TyVarName where
   parser = tyVarNameParser
