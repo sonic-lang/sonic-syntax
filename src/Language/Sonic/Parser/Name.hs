@@ -74,6 +74,8 @@ reservedWords = map
   , "where"
   , "Type"
   , "forall"
+  , "="
+  , "=>"
   , "::"
   , "~"
   ]
@@ -96,6 +98,7 @@ isOperatorChar = (`elem` chars)
     , '^'
     , '-'
     , '~'
+    , '='
     , ':'
     , '@'
     ]
