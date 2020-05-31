@@ -50,7 +50,9 @@ import           Language.Sonic.Parser.Name     ( varNameParser
 import           Language.Sonic.Parser.Path     ( pathParser )
 import           Language.Sonic.Parser.Literal  ( literalParser )
 import           Language.Sonic.Parser.Type     ( typeParser )
-import           Language.Sonic.Parser.Pattern  ( patParser )
+import           Language.Sonic.Parser.Pattern  ( patParser
+                                                , atomPatParser
+                                                )
 import           Language.Sonic.Syntax.Sequence ( Sequence(..) )
 import           Language.Sonic.Syntax.Expression
                                                 ( Expr(..)
@@ -76,7 +78,7 @@ tupleOrParensExprParser = tupleOrParensParser Tuple exprParser
 lambdaExprParser :: Source s => Parse s (Expr Offset)
 lambdaExprParser = do
   symbol "\\"
-  pats <- many (withOffset patParser)
+  pats <- many (withOffset atomPatParser)
   symbol "."
   body <- withOffset exprParser
   pure $ Lambda (Sequence pats) body

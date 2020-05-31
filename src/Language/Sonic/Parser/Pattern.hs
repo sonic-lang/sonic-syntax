@@ -1,5 +1,6 @@
 module Language.Sonic.Parser.Pattern
   ( patParser
+  , atomPatParser
   , patInfixParser
   )
 where
@@ -66,7 +67,7 @@ atomPatParser =
   wildcardPatParser
     <|> literalPatParser
     <|> tupleOrParensPatParser
-    <|> nullaryCtorPatParser
+    <|> try nullaryCtorPatParser
     <|> varPatParser
 
 operators :: Source s => [Operators s Pat]
