@@ -1,5 +1,6 @@
 module Language.Sonic.Syntax.Pattern
   ( Pat(..)
+  , PatInfix(..)
   )
 where
 
@@ -22,4 +23,8 @@ data Pat l
   | Var (Located l VarName)
   | Tuple (Located l (Sequence Pat))
   | Ctor (Located l (Path CtorName)) (Sequence Pat l)
+  | Infix (Located l Pat) (Located l PatInfix) (Located l Pat)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
+
+newtype PatInfix l = PatInfix (Path CtorName l)
   deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

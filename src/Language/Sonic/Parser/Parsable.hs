@@ -90,6 +90,9 @@ instance Parsable Literal where
 instance Parsable Pat where
   parser = patParser
 
+instance Parsable PatInfix where
+  parser = patInfixParser
+
 -- Kind
 
 instance Parsable Kind where
