@@ -12,7 +12,6 @@ module Language.Sonic.Parser.Internal.Location
 where
 
 import           GHC.Generics                   ( Generic )
-import           GHC.Natural                    ( intToNatural )
 import           Data.Data                      ( Data )
 import           Numeric.Natural                ( Natural )
 
@@ -48,9 +47,10 @@ fromSourcePos :: Parsec.SourcePos -> Position
 fromSourcePos Parsec.SourcePos { Parsec.sourceLine, Parsec.sourceColumn } =
   position
  where
-  position = Position { line, column }
-  line     = intToNatural $ Parsec.unPos sourceLine
-  column   = intToNatural $ Parsec.unPos sourceColumn
+  position     = Position { line, column }
+  line         = intToNatural $ Parsec.unPos sourceLine
+  column       = intToNatural $ Parsec.unPos sourceColumn
+  intToNatural = fromInteger . toInteger
 
 getPosition :: MonadParsec e s m => m Position
 getPosition = fromSourcePos <$> Parsec.getSourcePos
