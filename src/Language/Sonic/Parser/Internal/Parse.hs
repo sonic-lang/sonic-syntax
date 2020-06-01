@@ -76,8 +76,7 @@ unexpectedChunk found = unexpected unexpectedItem
 
 unexpected :: Source s => Parsec.ErrorItem Char -> TokenItem s -> Parse s a
 unexpected found expected = Parsec.failure (Just found) expectedItems
- where
-  expectedItems = Set.singleton $ toErrorItem expected
+  where expectedItems = Set.singleton $ toErrorItem expected
 
 matchToken :: Source s => (Char -> Maybe a) -> [TokenItem s] -> Parse s a
 matchToken f expected = Parsec.token f expectedItems
