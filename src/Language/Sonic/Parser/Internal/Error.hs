@@ -82,6 +82,7 @@ data UnexpectedTokenError s
   }
   deriving (Show, Eq, Generic)
 
+{- HLINT ignore Error "Use newtype instead of data" -}
 data Error s = UnexpectedToken (NonEmpty (UnexpectedTokenError s))
   deriving (Show, Eq, Generic)
 

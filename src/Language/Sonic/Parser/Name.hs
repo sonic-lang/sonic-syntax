@@ -110,7 +110,7 @@ class Name a where
   followingLetter :: Proxy a -> Char -> Bool
   fromText :: Text -> a l
 
-  default fromText :: Coercible Text (a l) => Text -> (a l)
+  default fromText :: Coercible Text (a l) => Text -> a l
   fromText = coerce
 
 newtype Symbol a l = Symbol (a l)

@@ -94,7 +94,7 @@ match ParseErrorPredicate { positionP, expectedP, foundP } UnexpectedTokenError 
  where
   matchPosition (Just (Last p)) = p == position
   matchPosition Nothing         = True
-  matchExpected es = all (`elem` expected) es
+  matchExpected = all (`elem` expected)
   matchFound (Just (Last item)) = Just item == found
   matchFound Nothing            = True
 
