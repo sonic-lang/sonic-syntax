@@ -93,6 +93,7 @@ test-suite test
 
   -- cabal-fmt: expand test
   other-modules:
+    Golden
     Language.Sonic.Parser.ExpressionSpec
     Language.Sonic.Parser.KindSpec
     Language.Sonic.Parser.LiteralSpec
@@ -105,8 +106,12 @@ test-suite test
   build-tool-depends: tasty-discover:tasty-discover -any
   build-depends:
       base
+    , directory
+    , filepath
+    , pretty-simple
     , sonic-syntax
     , tasty
+    , tasty-golden
     , tasty-hunit
     , text
 

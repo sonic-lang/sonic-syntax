@@ -1,0 +1,4 @@
+-- simply print 1
+
+main :: IO () ;;
+main = print 1

@@ -1,0 +1,9 @@
+data Bool where {
+  True  :: Bool;
+  False :: Bool;
+}
+
+data Option a where {
+  Some :: a -> Option a;
+  None :: Option a;
+}

@@ -1,0 +1,13 @@
+class Eq a where {
+  eq :: a -> a -> Bool;
+  ne :: a -> a -> Bool;
+  ne x y = not (eq x y);
+}
+
+instance (Eq a, Eq b) => Eq (a, b) where {
+  eq (x1, x2) (y1, y2) = eq x1 y1 && eq x2 y2
+}
+
+member :: forall a. Eq a => a -> List a -> Bool ;;
+member | _ Nil        = False
+       | x (Cons h t) = eq x h \/ member x t
