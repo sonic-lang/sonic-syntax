@@ -1,5 +1,6 @@
 module Language.Sonic.Parser.Attribute
-  ( attrSetParser
+  ( withAttrSetParser
+  , attrSetParser
   , attrParser
   , attrValueParser
   , attrValueListParser
@@ -10,7 +11,9 @@ import           Data.Functor                   ( void )
 import           Data.Text                      ( unpack )
 import           Control.Applicative            ( Alternative(..) )
 import           Control.Applicative.Combinators
-                                                ( sepBy )
+                                                ( sepBy
+                                                , optional
+                                                )
 
 import           Text.Megaparsec                ( takeWhile1P
                                                 , single
@@ -39,7 +42,14 @@ import           Language.Sonic.Syntax.Attribute
                                                 , AttrSet(..)
                                                 , AttrValue(..)
                                                 , AttrValueList(..)
+                                                , WithAttrSet(..)
                                                 )
+
+withAttrSetParser
+  :: Source s => Parse s (d Offset) -> Parse s (WithAttrSet d Offset)
+withAttrSetParser d = do
+  as <- optional $ symbol "#" *> withOffset attrSetParser
+  WithAttrSet as <$> withOffset d
 
 attrParser :: Source s => Parse s (Attr Offset)
 attrParser = do

@@ -34,6 +34,8 @@ import           Language.Sonic.Syntax.Expression
                                                 ( Expr
                                                 , Guard
                                                 )
+import           Language.Sonic.Syntax.Attribute
+                                                ( WithAttrSet )
 
 -- | Top-level declaration.
 data Decl l
@@ -115,5 +117,5 @@ data InstanceDecl l
   deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 -- | Where clause.
-newtype WhereClause d l = WhereClause (Located l (Sequence d))
+newtype WhereClause d l = WhereClause (Located l (Sequence (WithAttrSet d)))
   deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

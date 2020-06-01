@@ -1,5 +1,6 @@
 module Language.Sonic.Syntax.Attribute
-  ( AttrSet(..)
+  ( WithAttrSet(..)
+  , AttrSet(..)
   , Attr(..)
   , AttrValue(..)
   , AttrValueList(..)
@@ -19,6 +20,10 @@ import           Language.Sonic.Syntax.Name     ( AttrKeyName
                                                 )
 import           Language.Sonic.Syntax.Path     ( Path )
 import           Language.Sonic.Syntax.Location ( Located )
+
+data WithAttrSet a l
+  = WithAttrSet (Maybe (Located l AttrSet)) (Located l a)
+  deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)
 
 newtype AttrSet l = AttrSet (Sequence Attr l)
   deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

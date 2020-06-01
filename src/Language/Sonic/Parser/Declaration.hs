@@ -52,6 +52,8 @@ import           Language.Sonic.Parser.Expression
                                                 ( exprParser
                                                 , guardParser
                                                 )
+import           Language.Sonic.Parser.Attribute
+                                                ( withAttrSetParser )
 import           Language.Sonic.Syntax.Sequence ( Sequence(..) )
 import           Language.Sonic.Syntax.Declaration
                                                 ( Decl(..)
@@ -101,11 +103,11 @@ whereClauseParser d = do
   pure $ WhereClause decls
  where
   oneDecl = do
-    decl <- withOffset d
+    decl <- withOffset $ withAttrSetParser d
     pure $ Sequence [decl]
   manyDecls = do
     symbol "{"
-    ds <- withOffset d `sepEndBy` symbol ";"
+    ds <- withOffset (withAttrSetParser d) `sepEndBy` symbol ";"
     symbol "}"
     pure $ Sequence ds
 
