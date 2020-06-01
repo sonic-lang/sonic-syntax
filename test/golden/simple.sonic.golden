@@ -11,95 +11,119 @@ Right
                         { line = 3
                         , column = 1
                         }
-                    , content = Simple
-                        ( Signature
-                            ( SignatureDecl
-                                { name = L
+                    , content = TopDecl
+                        ( L
+                            { begin = Position
+                                { line = 3
+                                , column = 1
+                                }
+                            , content = WithAttrSet Nothing
+                                ( L
                                     { begin = Position
                                         { line = 3
                                         , column = 1
                                         }
-                                    , content = VarName "main"
-                                    , end = Position
-                                        { line = 3
-                                        , column = 6
-                                        }
-                                    }
-                                , type_ = L
-                                    { begin = Position
-                                        { line = 3
-                                        , column = 9
-                                        }
-                                    , content = Apply
-                                        ( L
-                                            { begin = Position
-                                                { line = 3
-                                                , column = 9
-                                                }
-                                            , content = Ctor
-                                                ( L
+                                    , content = Simple
+                                        ( Signature
+                                            ( SignatureDecl
+                                                { name = L
+                                                    { begin = Position
+                                                        { line = 3
+                                                        , column = 1
+                                                        }
+                                                    , content = VarName "main"
+                                                    , end = Position
+                                                        { line = 3
+                                                        , column = 6
+                                                        }
+                                                    }
+                                                , type_ = L
                                                     { begin = Position
                                                         { line = 3
                                                         , column = 9
                                                         }
-                                                    , content = Path
-                                                        { prefix = Nothing
-                                                        , modulePath = Nothing
-                                                        , name = L
+                                                    , content = Apply
+                                                        ( L
                                                             { begin = Position
                                                                 { line = 3
                                                                 , column = 9
                                                                 }
-                                                            , content = TyCtorName "IO"
+                                                            , content = Ctor
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 3
+                                                                        , column = 9
+                                                                        }
+                                                                    , content = Path
+                                                                        { prefix = Nothing
+                                                                        , modulePath = Nothing
+                                                                        , name = L
+                                                                            { begin = Position
+                                                                                { line = 3
+                                                                                , column = 9
+                                                                                }
+                                                                            , content = TyCtorName "IO"
+                                                                            , end = Position
+                                                                                { line = 3
+                                                                                , column = 12
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    , end = Position
+                                                                        { line = 3
+                                                                        , column = 12
+                                                                        }
+                                                                    }
+                                                                )
                                                             , end = Position
                                                                 { line = 3
                                                                 , column = 12
                                                                 }
                                                             }
-                                                        }
-                                                    , end = Position
-                                                        { line = 3
-                                                        , column = 12
-                                                        }
-                                                    }
-                                                )
-                                            , end = Position
-                                                { line = 3
-                                                , column = 12
-                                                }
-                                            }
-                                        )
-                                        ( L
-                                            { begin = Position
-                                                { line = 3
-                                                , column = 12
-                                                }
-                                            , content = Tuple
-                                                ( L
-                                                    { begin = Position
-                                                        { line = 3
-                                                        , column = 12
-                                                        }
-                                                    , content = Sequence []
+                                                        )
+                                                        ( L
+                                                            { begin = Position
+                                                                { line = 3
+                                                                , column = 12
+                                                                }
+                                                            , content = Tuple
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 3
+                                                                        , column = 12
+                                                                        }
+                                                                    , content = Sequence []
+                                                                    , end = Position
+                                                                        { line = 3
+                                                                        , column = 15
+                                                                        }
+                                                                    }
+                                                                )
+                                                            , end = Position
+                                                                { line = 3
+                                                                , column = 15
+                                                                }
+                                                            }
+                                                        )
                                                     , end = Position
                                                         { line = 3
                                                         , column = 15
                                                         }
                                                     }
-                                                )
-                                            , end = Position
-                                                { line = 3
-                                                , column = 15
                                                 }
-                                            }
+                                            )
                                         )
                                     , end = Position
                                         { line = 3
                                         , column = 15
                                         }
                                     }
+                                )
+                            , end = Position
+                                { line = 3
+                                , column = 15
                                 }
-                            )
+                            }
                         )
                     , end = Position
                         { line = 3
@@ -111,108 +135,132 @@ Right
                         { line = 4
                         , column = 1
                         }
-                    , content = Simple
-                        ( Value
-                            ( ValueDecl
-                                { pat = L
+                    , content = TopDecl
+                        ( L
+                            { begin = Position
+                                { line = 4
+                                , column = 1
+                                }
+                            , content = WithAttrSet Nothing
+                                ( L
                                     { begin = Position
                                         { line = 4
                                         , column = 1
                                         }
-                                    , content = Var
-                                        ( L
-                                            { begin = Position
-                                                { line = 4
-                                                , column = 1
-                                                }
-                                            , content = VarName "main"
-                                            , end = Position
-                                                { line = 4
-                                                , column = 6
-                                                }
-                                            }
-                                        )
-                                    , end = Position
-                                        { line = 4
-                                        , column = 6
-                                        }
-                                    }
-                                , body = L
-                                    { begin = Position
-                                        { line = 4
-                                        , column = 8
-                                        }
-                                    , content = Apply
-                                        ( L
-                                            { begin = Position
-                                                { line = 4
-                                                , column = 8
-                                                }
-                                            , content = Var
-                                                ( L
+                                    , content = Simple
+                                        ( Value
+                                            ( ValueDecl
+                                                { pat = L
+                                                    { begin = Position
+                                                        { line = 4
+                                                        , column = 1
+                                                        }
+                                                    , content = Var
+                                                        ( L
+                                                            { begin = Position
+                                                                { line = 4
+                                                                , column = 1
+                                                                }
+                                                            , content = VarName "main"
+                                                            , end = Position
+                                                                { line = 4
+                                                                , column = 6
+                                                                }
+                                                            }
+                                                        )
+                                                    , end = Position
+                                                        { line = 4
+                                                        , column = 6
+                                                        }
+                                                    }
+                                                , body = L
                                                     { begin = Position
                                                         { line = 4
                                                         , column = 8
                                                         }
-                                                    , content = Path
-                                                        { prefix = Nothing
-                                                        , modulePath = Nothing
-                                                        , name = L
+                                                    , content = Apply
+                                                        ( L
                                                             { begin = Position
                                                                 { line = 4
                                                                 , column = 8
                                                                 }
-                                                            , content = VarName "print"
+                                                            , content = Var
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 4
+                                                                        , column = 8
+                                                                        }
+                                                                    , content = Path
+                                                                        { prefix = Nothing
+                                                                        , modulePath = Nothing
+                                                                        , name = L
+                                                                            { begin = Position
+                                                                                { line = 4
+                                                                                , column = 8
+                                                                                }
+                                                                            , content = VarName "print"
+                                                                            , end = Position
+                                                                                { line = 4
+                                                                                , column = 14
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    , end = Position
+                                                                        { line = 4
+                                                                        , column = 14
+                                                                        }
+                                                                    }
+                                                                )
                                                             , end = Position
                                                                 { line = 4
                                                                 , column = 14
                                                                 }
                                                             }
-                                                        }
-                                                    , end = Position
-                                                        { line = 4
-                                                        , column = 14
-                                                        }
-                                                    }
-                                                )
-                                            , end = Position
-                                                { line = 4
-                                                , column = 14
-                                                }
-                                            }
-                                        )
-                                        ( L
-                                            { begin = Position
-                                                { line = 4
-                                                , column = 14
-                                                }
-                                            , content = Literal
-                                                ( L
-                                                    { begin = Position
-                                                        { line = 4
-                                                        , column = 14
-                                                        }
-                                                    , content = Integer 1
+                                                        )
+                                                        ( L
+                                                            { begin = Position
+                                                                { line = 4
+                                                                , column = 14
+                                                                }
+                                                            , content = Literal
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 4
+                                                                        , column = 14
+                                                                        }
+                                                                    , content = Integer 1
+                                                                    , end = Position
+                                                                        { line = 5
+                                                                        , column = 1
+                                                                        }
+                                                                    }
+                                                                )
+                                                            , end = Position
+                                                                { line = 5
+                                                                , column = 1
+                                                                }
+                                                            }
+                                                        )
                                                     , end = Position
                                                         { line = 5
                                                         , column = 1
                                                         }
                                                     }
-                                                )
-                                            , end = Position
-                                                { line = 5
-                                                , column = 1
+                                                , bindings = Nothing
                                                 }
-                                            }
+                                            )
                                         )
                                     , end = Position
                                         { line = 5
                                         , column = 1
                                         }
                                     }
-                                , bindings = Nothing
+                                )
+                            , end = Position
+                                { line = 5
+                                , column = 1
                                 }
-                            )
+                            }
                         )
                     , end = Position
                         { line = 5

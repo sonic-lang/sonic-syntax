@@ -1,0 +1,11 @@
+#![some_module_attribute = "awesome!"]
+
+#[inline]
+id x = x
+;;
+
+#[derive($std.derive.show, $std.derive.eq)]
+data Void where {}
+
+#[cfg[os = "linux", arch = "x64"], specialize = "all"]
+someAwesomeFunc = #someAwesomePrimitive
