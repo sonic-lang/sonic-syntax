@@ -1,3 +1,5 @@
+{-# LANGUAGE ExplicitForAll #-}
+
 module Language.Sonic.Parser
   ( parse
   , parseNonGreedy
@@ -44,13 +46,15 @@ import           Language.Sonic.Parser.Parsable ( Parsable(..)
 import           Language.Sonic.Syntax.Location ( Located )
 
 parse
-  :: (Parsable a, Source s, MonadError (Error s) m)
+  :: forall a m s
+   . (Parsable a, Source s, MonadError (Error s) m)
   => s
   -> m (Located Position a)
 parse = fmap fst . parseWithComment
 
 parseWithComment
-  :: (Parsable a, Source s, MonadError (Error s) m)
+  :: forall a m s
+   . (Parsable a, Source s, MonadError (Error s) m)
   => s
   -> m (Located Position a, [Comment])
 parseWithComment input = do
@@ -58,7 +62,8 @@ parseWithComment input = do
   pure (a, comments)
 
 parseNonGreedy
-  :: (Parsable a, Source s, MonadError (Error s) m)
+  :: forall a m s
+   . (Parsable a, Source s, MonadError (Error s) m)
   => s
   -> m (Located Position a, s)
 parseNonGreedy input = do
@@ -66,7 +71,8 @@ parseNonGreedy input = do
   pure (a, rest)
 
 parseNonGreedyWithComment
-  :: (Parsable a, Source s, MonadError (Error s) m)
+  :: forall a m s
+   . (Parsable a, Source s, MonadError (Error s) m)
   => s
   -> m (Located Position a, [Comment], s)
 parseNonGreedyWithComment = runParse (space *> withOffset parser)
