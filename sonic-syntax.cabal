@@ -116,5 +116,4 @@ test-suite test
     , text
 
   default-language:   Haskell2010
-  default-extensions: ScopedTypeVariables
   ghc-options:        -Wall -threaded -rtsopts -with-rtsopts=-N

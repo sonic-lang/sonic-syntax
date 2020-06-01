@@ -1,6 +1,7 @@
 {-# LANGUAGE NamedFieldPuns      #-}
 {-# LANGUAGE AllowAmbiguousTypes #-}
 {-# LANGUAGE TypeApplications    #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 {-# OPTIONS_GHC -Wno-orphans     #-}
 
