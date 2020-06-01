@@ -21,7 +21,6 @@ import qualified Data.Set                      as Set
 import           Data.Text                      ( unpack )
 import           Control.Monad                  ( MonadPlus )
 import           Control.Applicative            ( Alternative )
-import           Control.Monad.Trans.Class      ( lift )
 import           Control.Monad.Except           ( MonadError(..) )
 import           Control.Monad.State.Strict     ( StateT
                                                 , modify
@@ -76,9 +75,8 @@ unexpectedChunk found = unexpected unexpectedItem
   where unexpectedItem = Parsec.Tokens . fromList . unpack $ fromChunk found
 
 unexpected :: Source s => Parsec.ErrorItem Char -> TokenItem s -> Parse s a
-unexpected found expected = Parse $ lift failure
+unexpected found expected = Parsec.failure (Just found) expectedItems
  where
-  failure       = Parsec.failure (Just found) expectedItems
   expectedItems = Set.singleton $ toErrorItem expected
 
 matchToken :: Source s => (Char -> Maybe a) -> [TokenItem s] -> Parse s a
