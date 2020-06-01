@@ -1,13 +1,13 @@
 cabal-version:      2.0
 name:               sonic-syntax
 version:            0.1.0.0
-synopsis:           Syntax definition for Sonic source
+synopsis:           Parser for Sonic
 description:
-  @sonic-syntax@ provides a complete syntax definition for Sonic language.
+  @sonic-syntax@ provides a complete syntax definition and a parser for the Sonic language.
 
 bug-reports:        https://github.com/sonic-lang/sonic-syntax/issues
 homepage:           https://github.com/sonic-lang/sonic-syntax#readme
-license:            GPL-2.0
+license:            GPL-2
 license-file:       COPYING.md
 author:             coord_e
 maintainer:         coord_e <me@coord-e.com>
@@ -17,6 +17,13 @@ build-type:         Simple
 extra-source-files:
   README.md
   CHANGELOG.md
+
+-- see .github/workflows
+tested-with:        GHC ==8.4.4 || ==8.6.5 || ==8.8.3 || ==8.10.1
+
+source-repository head
+  type:     git
+  location: https://github.com/sonic-lang/sonic-syntax
 
 library
   hs-source-dirs:     src
@@ -55,14 +62,14 @@ library
     Language.Sonic.Parser.Type
 
   build-depends:
-      base                ^>=4.13
-    , containers          ^>=0.6
+      base                >=4.11.0 && <5
+    , containers          >=0.1.0  && <0.7
     , megaparsec          ^>=8.0
     , microlens           ^>=0.4
     , microlens-th        ^>=0.4
-    , mtl                 ^>=2.2
-    , parser-combinators  ^>=1.2
-    , text                >=0.1.0 && <1.3
+    , mtl                 ^>=2.2.1
+    , parser-combinators  >=0.4.0  && <1.3
+    , text                >=0.1.0  && <1.3
 
   default-language:   Haskell2010
   default-extensions:
@@ -78,12 +85,9 @@ library
     MonoLocalBinds
     TypeSynonymInstances
 
-  if impl(ghc >=8)
-    ghc-options: -Wredundant-constraints
-
   ghc-options:
     -Wall -Wcompat -Widentities -Wincomplete-record-updates
-    -Wincomplete-uni-patterns
+    -Wincomplete-uni-patterns -Wredundant-constraints
 
 test-suite test
   type:               exitcode-stdio-1.0
