@@ -118,7 +118,7 @@ atomExprParser :: Source s => Parse s (Expr Offset)
 atomExprParser =
   literalExprParser
     <|> tupleOrParensExprParser
-    <|> lambdaExprParser
+    <|> try lambdaExprParser
     <|> letExprParser
     <|> caseExprParser
     <|> try varExprParser

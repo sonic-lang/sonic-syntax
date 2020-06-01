@@ -188,12 +188,20 @@ test_expr =
         )
       )
     )
+  , testCase "infix operator starts with \\" $ assertParse
+    "True \\/ False"
+    (InfixApply (loc (Ctor (loc (path (CtorName "True")))))
+                (loc (VarInfix (path (VarName "\\/"))))
+                (loc (Ctor (loc (path (CtorName "False")))))
+    )
   ]
 
 test_exprInfix :: [TestTree]
 test_exprInfix =
-  [ testCase "simple infix operator"
+  [ testCase "simple infix operator 1"
     $ assertParse "+" (VarInfix (path (VarName "+")))
+  , testCase "simple infix operator 2"
+    $ assertParse "\\/" (VarInfix (path (VarName "\\/")))
   , testCase "simple constructor infix operator"
     $ assertParse ":!" (CtorInfix (path (CtorName ":!")))
   , testCase "quoted infix operator"

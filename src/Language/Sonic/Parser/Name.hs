@@ -74,6 +74,7 @@ reservedWords = map
   , "where"
   , "Type"
   , "forall"
+  , "\\"
   , "="
   , "=>"
   , "::"
