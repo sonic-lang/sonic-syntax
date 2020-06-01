@@ -1,7 +1,10 @@
 {-# LANGUAGE ExplicitForAll #-}
 
 module Language.Sonic.Parser
-  ( parse
+  ( parseModule
+  , parseModuleWithComment
+  -- * Generic parser functions
+  , parse
   , parseNonGreedy
   , parseWithComment
   , parseNonGreedyWithComment
@@ -44,6 +47,14 @@ import           Language.Sonic.Parser.Parsable ( Parsable(..)
                                                 , Symbol(..)
                                                 )
 import           Language.Sonic.Syntax.Location ( Located )
+import           Language.Sonic.Syntax.Module   ( Module )
+
+parseModule :: Source s => s -> Either (Error s) (Located Position Module)
+parseModule = parse
+
+parseModuleWithComment
+  :: Source s => s -> Either (Error s) (Located Position Module, [Comment])
+parseModuleWithComment = parseWithComment
 
 parse
   :: forall a m s
