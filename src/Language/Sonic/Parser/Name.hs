@@ -13,6 +13,10 @@ module Language.Sonic.Parser.Name
   , tyVarNameParser
   , classNameParser
   , moduleComponentNameParser
+  , attrKeyNameParser
+  , valueNameParser
+  , typeNameParser
+  , entityNameParser
   )
 where
 
@@ -30,6 +34,7 @@ import           Data.Char                      ( isUpper
                                                 , isAlphaNum
                                                 , isNumber
                                                 )
+import           Control.Applicative            ( Alternative(..) )
 import           Control.Monad                  ( when )
 
 import           Text.Megaparsec                ( takeWhileP
@@ -44,7 +49,9 @@ import           Language.Sonic.Parser.Internal.Source
                                                 , toChunk
                                                 )
 import           Language.Sonic.Parser.Internal.Location
-                                                ( Offset )
+                                                ( Offset
+                                                , withOffset
+                                                )
 import           Language.Sonic.Parser.Internal.Error
                                                 ( TokenItem(..) )
 import           Language.Sonic.Parser.Internal.Parse
@@ -52,13 +59,19 @@ import           Language.Sonic.Parser.Internal.Parse
                                                 , unexpectedChunk
                                                 )
 import           Language.Sonic.Parser.Internal.Lexer
-                                                ( lexeme )
+                                                ( lexeme
+                                                , symbol
+                                                )
 import           Language.Sonic.Syntax.Name     ( CtorName(..)
                                                 , VarName(..)
                                                 , TyCtorName(..)
                                                 , TyVarName(..)
                                                 , ClassName(..)
                                                 , ModuleComponentName(..)
+                                                , AttrKeyName(..)
+                                                , ValueName(..)
+                                                , TypeName(..)
+                                                , EntityName(..)
                                                 )
 
 reservedWords :: [Text]
@@ -152,6 +165,11 @@ instance Name ModuleComponentName where
   initialLetter _ = isLower
   followingLetter _ c = isNumber c || isLower c || c == '_'
 
+instance Name AttrKeyName where
+  description _ = "attr key"
+  initialLetter _ = isLower
+  followingLetter _ c = isNumber c || isLower c || c == '_'
+
 instance Name (Symbol CtorName) where
   description _ = "constructor operator symbol"
   initialLetter _ = (== ':')
@@ -208,3 +226,21 @@ classNameParser = nameParser
 
 moduleComponentNameParser :: Source s => Parse s (ModuleComponentName Offset)
 moduleComponentNameParser = nameParser
+
+attrKeyNameParser :: Source s => Parse s (AttrKeyName Offset)
+attrKeyNameParser = nameParser
+
+valueNameParser :: Source s => Parse s (ValueName Offset)
+valueNameParser =
+  VarValueName <$> nameParser <|> CtorValueName <$> nameParser <?> "value name"
+
+typeNameParser :: Source s => Parse s (TypeName Offset)
+typeNameParser =
+  VarTypeName <$> nameParser <|> CtorTypeName <$> nameParser <?> "type name"
+
+entityNameParser :: Source s => Parse s (EntityName Offset)
+entityNameParser = className <|> typeName <|> valueName <?> "entity name"
+ where
+  typeName  = symbol "'" *> (TypeEntityName <$> withOffset typeNameParser)
+  className = symbol "''" *> (ClassEntityName <$> withOffset classNameParser)
+  valueName = ValueEntityName <$> withOffset valueNameParser

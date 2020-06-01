@@ -11,6 +11,10 @@ module Language.Sonic.Parser.NameSpec
   , test_tyVarName
   , test_className
   , test_moduleComponentName
+  , test_attrKeyName
+  , test_valueName
+  , test_typeName
+  , test_entityName
   )
 where
 
@@ -123,4 +127,45 @@ test_moduleComponentName =
     $ assertParse "my_module" (ModuleComponentName "my_module")
   , testCase "module component name does not accept uppercase"
     $ assertParseFail @ModuleComponentName "myModule" (get "M")
+  ]
+
+test_attrKeyName :: [TestTree]
+test_attrKeyName =
+  [ testCase "attribute key name" $ assertParse "attr" (AttrKeyName "attr")
+  , testCase "attribute key name accept numbers"
+    $ assertParse "attr2" (AttrKeyName "attr2")
+  , testCase "attribute key name accept underscore"
+    $ assertParse "compiles_to" (AttrKeyName "compiles_to")
+  , testCase "attribute key name does not accept uppercase"
+    $ assertParseFail @AttrKeyName "derivingList" (get "L")
+  ]
+
+test_valueName :: [TestTree]
+test_valueName =
+  [ testCase "variable name" $ assertParse "x1" (VarValueName (VarName "x1"))
+  , testCase "constructor name"
+    $ assertParse "Mk" (CtorValueName (CtorName "Mk"))
+  ]
+
+test_typeName :: [TestTree]
+test_typeName =
+  [ testCase "type variable name"
+    $ assertParse "a1" (VarTypeName (TyVarName "a1"))
+  , testCase "type constructor name"
+    $ assertParse "Int" (CtorTypeName (TyCtorName "Int"))
+  ]
+
+test_entityName :: [TestTree]
+test_entityName =
+  [ testCase "variable name"
+    $ assertParse "x1" (ValueEntityName (loc (VarValueName (VarName "x1"))))
+  , testCase "constructor name"
+    $ assertParse "Mk" (ValueEntityName (loc (CtorValueName (CtorName "Mk"))))
+  , testCase "type variable name"
+    $ assertParse "'a" (TypeEntityName (loc (VarTypeName (TyVarName "a"))))
+  , testCase "type constructor name" $ assertParse
+    "'Int"
+    (TypeEntityName (loc (CtorTypeName (TyCtorName "Int"))))
+  , testCase "type class name"
+    $ assertParse "''Eq" (ClassEntityName (loc (ClassName "Eq")))
   ]

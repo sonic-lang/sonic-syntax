@@ -23,6 +23,7 @@ import           Language.Sonic.Parser.Pattern
 import           Language.Sonic.Parser.Kind
 import           Language.Sonic.Parser.Type
 import           Language.Sonic.Parser.Expression
+import           Language.Sonic.Parser.Attribute
 import           Language.Sonic.Parser.Declaration
 import           Language.Sonic.Parser.Module
 
@@ -33,6 +34,7 @@ import           Language.Sonic.Syntax.Pattern
 import           Language.Sonic.Syntax.Kind
 import           Language.Sonic.Syntax.Type
 import           Language.Sonic.Syntax.Expression
+import           Language.Sonic.Syntax.Attribute
 import           Language.Sonic.Syntax.Declaration
 import           Language.Sonic.Syntax.Module
 
@@ -71,6 +73,18 @@ instance Parsable ClassName where
 
 instance Parsable ModuleComponentName where
   parser = moduleComponentNameParser
+
+instance Parsable AttrKeyName where
+  parser = attrKeyNameParser
+
+instance Parsable ValueName where
+  parser = valueNameParser
+
+instance Parsable TypeName where
+  parser = typeNameParser
+
+instance Parsable EntityName where
+  parser = entityNameParser
 
 -- Path
 
@@ -134,6 +148,20 @@ instance Parsable CaseArm where
 
 instance Parsable Guard where
   parser = guardParser
+
+-- Attr
+
+instance Parsable AttrValue where
+  parser = attrValueParser
+
+instance Parsable AttrValueList where
+  parser = attrValueListParser
+
+instance Parsable Attr where
+  parser = attrParser
+
+instance Parsable AttrSet where
+  parser = attrSetParser
 
 -- Declaration
 

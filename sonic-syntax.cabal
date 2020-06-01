@@ -29,6 +29,7 @@ library
   hs-source-dirs:     src
   exposed-modules:
     Language.Sonic.Parser
+    Language.Sonic.Syntax.Attribute
     Language.Sonic.Syntax.Declaration
     Language.Sonic.Syntax.Expression
     Language.Sonic.Syntax.Kind
@@ -42,6 +43,7 @@ library
     Language.Sonic.Syntax.Type
 
   other-modules:
+    Language.Sonic.Parser.Attribute
     Language.Sonic.Parser.Declaration
     Language.Sonic.Parser.Expression
     Language.Sonic.Parser.Internal.Comment
@@ -97,6 +99,7 @@ test-suite test
   -- cabal-fmt: expand test
   other-modules:
     Golden
+    Language.Sonic.Parser.AttributeSpec
     Language.Sonic.Parser.ExpressionSpec
     Language.Sonic.Parser.KindSpec
     Language.Sonic.Parser.LiteralSpec
