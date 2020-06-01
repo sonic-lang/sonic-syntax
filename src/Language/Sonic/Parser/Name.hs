@@ -79,6 +79,7 @@ reservedWords = map
   , "=>"
   , "::"
   , "~"
+  , "|"
   ]
 
 isOperatorChar :: Char -> Bool
@@ -102,6 +103,7 @@ isOperatorChar = (`elem` chars)
     , '='
     , ':'
     , '@'
+    , '|'
     ]
 
 class Name a where

@@ -37,6 +37,8 @@ test_symbolCtorName =
     $ assertParse ":" (Symbol $ CtorName ":")
   , testCase "symbol constructor name accept :"
     $ assertParse ":+:" (Symbol $ CtorName ":+:")
+  , testCase "symbol constructor name accept |"
+    $ assertParse ":|" (Symbol $ CtorName ":|")
   , testCase "symbol constructor name starts with :"
     $ assertParseFail @(Symbol CtorName)
         "?:"
@@ -60,6 +62,8 @@ test_symbolVarName =
   [ testCase "symbol variable name" $ assertParse "+" (Symbol $ VarName "+")
   , testCase "symbol variable name accept :"
     $ assertParse "!:" (Symbol $ VarName "!:")
+  , testCase "symbol variable name accept |"
+    $ assertParse "||" (Symbol $ VarName "||")
   , testCase "symbol variable name does not start with :"
     $ assertParseFail @(Symbol VarName) ":+"
                                         (expect $ LabelItem "operator symbol")
