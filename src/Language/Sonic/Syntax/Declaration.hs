@@ -55,7 +55,7 @@ data SimpleDecl l
 -- | Name signature declaration.
 data SignatureDecl name l
   = SignatureDecl
-  { name  :: Located l name
+  { names :: Located l (Sequence name)
   , type_ :: Located l Type
   }
   deriving (Show, Eq, Data, Generic, Generic1, Functor, Foldable, Traversable)

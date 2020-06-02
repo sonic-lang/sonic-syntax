@@ -89,12 +89,24 @@ Right
                                                                                 }
                                                                             , content = Signature
                                                                                 ( SignatureDecl
-                                                                                    { name = L
+                                                                                    { names = L
                                                                                         { begin = Position
                                                                                             { line = 2
                                                                                             , column = 3
                                                                                             }
-                                                                                        , content = VarName "eq"
+                                                                                        , content = Sequence
+                                                                                            [ L
+                                                                                                { begin = Position
+                                                                                                    { line = 2
+                                                                                                    , column = 3
+                                                                                                    }
+                                                                                                , content = VarName "eq"
+                                                                                                , end = Position
+                                                                                                    { line = 2
+                                                                                                    , column = 6
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
                                                                                         , end = Position
                                                                                             { line = 2
                                                                                             , column = 6
@@ -291,12 +303,24 @@ Right
                                                                                 }
                                                                             , content = Signature
                                                                                 ( SignatureDecl
-                                                                                    { name = L
+                                                                                    { names = L
                                                                                         { begin = Position
                                                                                             { line = 3
                                                                                             , column = 3
                                                                                             }
-                                                                                        , content = VarName "ne"
+                                                                                        , content = Sequence
+                                                                                            [ L
+                                                                                                { begin = Position
+                                                                                                    { line = 3
+                                                                                                    , column = 3
+                                                                                                    }
+                                                                                                , content = VarName "ne"
+                                                                                                , end = Position
+                                                                                                    { line = 3
+                                                                                                    , column = 6
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
                                                                                         , end = Position
                                                                                             { line = 3
                                                                                             , column = 6
@@ -1663,12 +1687,24 @@ Right
                                     , content = Simple
                                         ( Signature
                                             ( SignatureDecl
-                                                { name = L
+                                                { names = L
                                                     { begin = Position
                                                         { line = 11
                                                         , column = 1
                                                         }
-                                                    , content = VarName "member"
+                                                    , content = Sequence
+                                                        [ L
+                                                            { begin = Position
+                                                                { line = 11
+                                                                , column = 1
+                                                                }
+                                                            , content = VarName "member"
+                                                            , end = Position
+                                                                { line = 11
+                                                                , column = 8
+                                                                }
+                                                            }
+                                                        ]
                                                     , end = Position
                                                         { line = 11
                                                         , column = 8

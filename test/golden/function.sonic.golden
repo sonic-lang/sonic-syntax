@@ -26,12 +26,24 @@ Right
                                     , content = Simple
                                         ( Signature
                                             ( SignatureDecl
-                                                { name = L
+                                                { names = L
                                                     { begin = Position
                                                         { line = 1
                                                         , column = 1
                                                         }
-                                                    , content = VarName "ack"
+                                                    , content = Sequence
+                                                        [ L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 1
+                                                                }
+                                                            , content = VarName "ack"
+                                                            , end = Position
+                                                                { line = 1
+                                                                , column = 5
+                                                                }
+                                                            }
+                                                        ]
                                                     , end = Position
                                                         { line = 1
                                                         , column = 5
@@ -1172,12 +1184,24 @@ Right
                                     , content = Simple
                                         ( Signature
                                             ( SignatureDecl
-                                                { name = L
+                                                { names = L
                                                     { begin = Position
                                                         { line = 7
                                                         , column = 1
                                                         }
-                                                    , content = VarName "max"
+                                                    , content = Sequence
+                                                        [ L
+                                                            { begin = Position
+                                                                { line = 7
+                                                                , column = 1
+                                                                }
+                                                            , content = VarName "max"
+                                                            , end = Position
+                                                                { line = 7
+                                                                , column = 5
+                                                                }
+                                                            }
+                                                        ]
                                                     , end = Position
                                                         { line = 7
                                                         , column = 5

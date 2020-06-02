@@ -62,12 +62,24 @@ Right
                                                                                 , column = 3
                                                                                 }
                                                                             , content = SignatureDecl
-                                                                                { name = L
+                                                                                { names = L
                                                                                     { begin = Position
                                                                                         { line = 2
                                                                                         , column = 3
                                                                                         }
-                                                                                    , content = CtorName "True"
+                                                                                    , content = Sequence
+                                                                                        [ L
+                                                                                            { begin = Position
+                                                                                                { line = 2
+                                                                                                , column = 3
+                                                                                                }
+                                                                                            , content = CtorName "True"
+                                                                                            , end = Position
+                                                                                                { line = 2
+                                                                                                , column = 9
+                                                                                                }
+                                                                                            }
+                                                                                        ]
                                                                                     , end = Position
                                                                                         { line = 2
                                                                                         , column = 9
@@ -134,12 +146,24 @@ Right
                                                                                 , column = 3
                                                                                 }
                                                                             , content = SignatureDecl
-                                                                                { name = L
+                                                                                { names = L
                                                                                     { begin = Position
                                                                                         { line = 3
                                                                                         , column = 3
                                                                                         }
-                                                                                    , content = CtorName "False"
+                                                                                    , content = Sequence
+                                                                                        [ L
+                                                                                            { begin = Position
+                                                                                                { line = 3
+                                                                                                , column = 3
+                                                                                                }
+                                                                                            , content = CtorName "False"
+                                                                                            , end = Position
+                                                                                                { line = 3
+                                                                                                , column = 9
+                                                                                                }
+                                                                                            }
+                                                                                        ]
                                                                                     , end = Position
                                                                                         { line = 3
                                                                                         , column = 9
@@ -307,12 +331,24 @@ Right
                                                                                 , column = 3
                                                                                 }
                                                                             , content = SignatureDecl
-                                                                                { name = L
+                                                                                { names = L
                                                                                     { begin = Position
                                                                                         { line = 7
                                                                                         , column = 3
                                                                                         }
-                                                                                    , content = CtorName "Some"
+                                                                                    , content = Sequence
+                                                                                        [ L
+                                                                                            { begin = Position
+                                                                                                { line = 7
+                                                                                                , column = 3
+                                                                                                }
+                                                                                            , content = CtorName "Some"
+                                                                                            , end = Position
+                                                                                                { line = 7
+                                                                                                , column = 8
+                                                                                                }
+                                                                                            }
+                                                                                        ]
                                                                                     , end = Position
                                                                                         { line = 7
                                                                                         , column = 8
@@ -479,12 +515,24 @@ Right
                                                                                 , column = 3
                                                                                 }
                                                                             , content = SignatureDecl
-                                                                                { name = L
+                                                                                { names = L
                                                                                     { begin = Position
                                                                                         { line = 8
                                                                                         , column = 3
                                                                                         }
-                                                                                    , content = CtorName "None"
+                                                                                    , content = Sequence
+                                                                                        [ L
+                                                                                            { begin = Position
+                                                                                                { line = 8
+                                                                                                , column = 3
+                                                                                                }
+                                                                                            , content = CtorName "None"
+                                                                                            , end = Position
+                                                                                                { line = 8
+                                                                                                , column = 8
+                                                                                                }
+                                                                                            }
+                                                                                        ]
                                                                                     , end = Position
                                                                                         { line = 8
                                                                                         , column = 8

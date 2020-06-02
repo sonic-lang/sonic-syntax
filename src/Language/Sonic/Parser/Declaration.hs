@@ -147,10 +147,11 @@ valueDeclParser = do
 signatureDeclParser
   :: Source s => Parse s (n Offset) -> Parse s (SignatureDecl n Offset)
 signatureDeclParser n = do
-  name <- withOffset n
+  names <- withOffset namesParser
   symbol "::"
   type_ <- withOffset typeParser
-  pure SignatureDecl { name, type_ }
+  pure SignatureDecl { names, type_ }
+  where namesParser = Sequence <$> withOffset n `sepBy1` symbol ","
 
 simpleDeclParser :: Source s => Parse s (SimpleDecl Offset)
 simpleDeclParser =

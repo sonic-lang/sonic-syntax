@@ -1,0 +1,295 @@
+Right
+    ( L
+        { begin = Position
+            { line = 1
+            , column = 1
+            }
+        , content = Module
+            ( Sequence
+                [ L
+                    { begin = Position
+                        { line = 1
+                        , column = 1
+                        }
+                    , content = TopDecl
+                        ( L
+                            { begin = Position
+                                { line = 1
+                                , column = 1
+                                }
+                            , content = WithAttrSet Nothing
+                                ( L
+                                    { begin = Position
+                                        { line = 1
+                                        , column = 1
+                                        }
+                                    , content = Simple
+                                        ( Signature
+                                            ( SignatureDecl
+                                                { names = L
+                                                    { begin = Position
+                                                        { line = 1
+                                                        , column = 1
+                                                        }
+                                                    , content = Sequence
+                                                        [ L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 1
+                                                                }
+                                                            , content = VarName "add"
+                                                            , end = Position
+                                                                { line = 1
+                                                                , column = 4
+                                                                }
+                                                            }
+                                                        , L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 6
+                                                                }
+                                                            , content = VarName "sub"
+                                                            , end = Position
+                                                                { line = 1
+                                                                , column = 9
+                                                                }
+                                                            }
+                                                        , L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 11
+                                                                }
+                                                            , content = VarName "mul"
+                                                            , end = Position
+                                                                { line = 1
+                                                                , column = 15
+                                                                }
+                                                            }
+                                                        ]
+                                                    , end = Position
+                                                        { line = 1
+                                                        , column = 15
+                                                        }
+                                                    }
+                                                , type_ = L
+                                                    { begin = Position
+                                                        { line = 1
+                                                        , column = 18
+                                                        }
+                                                    , content = InfixApply
+                                                        ( L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 22
+                                                                }
+                                                            , content = InfixApply
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 1
+                                                                        , column = 22
+                                                                        }
+                                                                    , content = Ctor
+                                                                        ( L
+                                                                            { begin = Position
+                                                                                { line = 1
+                                                                                , column = 22
+                                                                                }
+                                                                            , content = Path
+                                                                                { prefix = Nothing
+                                                                                , modulePath = Nothing
+                                                                                , name = L
+                                                                                    { begin = Position
+                                                                                        { line = 1
+                                                                                        , column = 22
+                                                                                        }
+                                                                                    , content = TyCtorName "Int"
+                                                                                    , end = Position
+                                                                                        { line = 1
+                                                                                        , column = 22
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            , end = Position
+                                                                                { line = 1
+                                                                                , column = 22
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    , end = Position
+                                                                        { line = 1
+                                                                        , column = 22
+                                                                        }
+                                                                    }
+                                                                )
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 1
+                                                                        , column = 22
+                                                                        }
+                                                                    , content = TypeInfix
+                                                                        ( Path
+                                                                            { prefix = Nothing
+                                                                            , modulePath = Nothing
+                                                                            , name = L
+                                                                                { begin = Position
+                                                                                    { line = 1
+                                                                                    , column = 22
+                                                                                    }
+                                                                                , content = TyCtorName "->"
+                                                                                , end = Position
+                                                                                    { line = 1
+                                                                                    , column = 25
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    , end = Position
+                                                                        { line = 1
+                                                                        , column = 25
+                                                                        }
+                                                                    }
+                                                                )
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 1
+                                                                        , column = 25
+                                                                        }
+                                                                    , content = Ctor
+                                                                        ( L
+                                                                            { begin = Position
+                                                                                { line = 1
+                                                                                , column = 25
+                                                                                }
+                                                                            , content = Path
+                                                                                { prefix = Nothing
+                                                                                , modulePath = Nothing
+                                                                                , name = L
+                                                                                    { begin = Position
+                                                                                        { line = 1
+                                                                                        , column = 25
+                                                                                        }
+                                                                                    , content = TyCtorName "Int"
+                                                                                    , end = Position
+                                                                                        { line = 1
+                                                                                        , column = 29
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            , end = Position
+                                                                                { line = 1
+                                                                                , column = 29
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    , end = Position
+                                                                        { line = 1
+                                                                        , column = 29
+                                                                        }
+                                                                    }
+                                                                )
+                                                            , end = Position
+                                                                { line = 1
+                                                                , column = 29
+                                                                }
+                                                            }
+                                                        )
+                                                        ( L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 29
+                                                                }
+                                                            , content = TypeInfix
+                                                                ( Path
+                                                                    { prefix = Nothing
+                                                                    , modulePath = Nothing
+                                                                    , name = L
+                                                                        { begin = Position
+                                                                            { line = 1
+                                                                            , column = 29
+                                                                            }
+                                                                        , content = TyCtorName "->"
+                                                                        , end = Position
+                                                                            { line = 1
+                                                                            , column = 32
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                )
+                                                            , end = Position
+                                                                { line = 1
+                                                                , column = 32
+                                                                }
+                                                            }
+                                                        )
+                                                        ( L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 32
+                                                                }
+                                                            , content = Ctor
+                                                                ( L
+                                                                    { begin = Position
+                                                                        { line = 1
+                                                                        , column = 32
+                                                                        }
+                                                                    , content = Path
+                                                                        { prefix = Nothing
+                                                                        , modulePath = Nothing
+                                                                        , name = L
+                                                                            { begin = Position
+                                                                                { line = 1
+                                                                                , column = 32
+                                                                                }
+                                                                            , content = TyCtorName "Int"
+                                                                            , end = Position
+                                                                                { line = 2
+                                                                                , column = 1
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    , end = Position
+                                                                        { line = 2
+                                                                        , column = 1
+                                                                        }
+                                                                    }
+                                                                )
+                                                            , end = Position
+                                                                { line = 2
+                                                                , column = 1
+                                                                }
+                                                            }
+                                                        )
+                                                    , end = Position
+                                                        { line = 2
+                                                        , column = 1
+                                                        }
+                                                    }
+                                                }
+                                            )
+                                        )
+                                    , end = Position
+                                        { line = 2
+                                        , column = 1
+                                        }
+                                    }
+                                )
+                            , end = Position
+                                { line = 2
+                                , column = 1
+                                }
+                            }
+                        )
+                    , end = Position
+                        { line = 2
+                        , column = 1
+                        }
+                    }
+                ]
+            )
+        , end = Position
+            { line = 2
+            , column = 1
+            }
+        }
+    , []
+    )
