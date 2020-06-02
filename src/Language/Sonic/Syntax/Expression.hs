@@ -24,7 +24,8 @@ import           Language.Sonic.Syntax.Type     ( Type )
 import           Language.Sonic.Syntax.Pattern  ( Pat )
 
 data Expr l
-  = Var (Located l (Path VarName))
+  = Parens (Located l Expr)
+  | Var (Located l (Path VarName))
   | Ctor (Located l (Path CtorName))
   | Literal (Located l Literal)
   | Tuple (Located l (Sequence Expr))

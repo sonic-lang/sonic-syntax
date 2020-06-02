@@ -46,8 +46,12 @@ test_type =
     (Apply
       (loc (Ctor (loc (path (TyCtorName "Maybe")))))
       (loc
-        (Apply (loc (Var (loc (TyVarName "f"))))
-               (loc (Var (loc (TyVarName "a"))))
+        (Parens
+          (loc
+            (Apply (loc (Var (loc (TyVarName "f"))))
+                   (loc (Var (loc (TyVarName "a"))))
+            )
+          )
         )
       )
     )

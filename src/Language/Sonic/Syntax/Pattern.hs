@@ -18,7 +18,8 @@ import           Language.Sonic.Syntax.Name     ( VarName
                                                 )
 
 data Pat l
-  = Wildcard
+  = Parens (Located l Pat)
+  | Wildcard
   | Literal (Located l Literal)
   | Var (Located l VarName)
   | Tuple (Located l (Sequence Pat))

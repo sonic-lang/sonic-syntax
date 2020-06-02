@@ -21,17 +21,18 @@ import           Language.Sonic.Syntax.Location ( noLoc
                                                 , Located
                                                 )
 
--- | @'tupleOrParensParser' ctor p@ parses a tuple of @p@ constructed with @ctor@, or @p@ with parentheses.
+-- | @'tupleOrParensParser' tuple parens p@ parses a tuple of @p@ constructed with @tuple@, or @p@ with parentheses constructed with @parens@.
 tupleOrParensParser
   :: Source s
   => (Located Offset (Sequence a) -> a Offset)
+  -> (Located Offset a -> a Offset)
   -> Parse s (a Offset)
   -> Parse s (a Offset)
-tupleOrParensParser ctor p = do
+tupleOrParensParser tupleCtor parensCtor p = do
   xs <- withOffset tupleParser
   pure $ case noLoc xs of
-    Sequence [x] -> noLoc x
-    _            -> ctor xs
+    Sequence [x] -> parensCtor x
+    _            -> tupleCtor xs
  where
   tupleParser = do
     symbol "("

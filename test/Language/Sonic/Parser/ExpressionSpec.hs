@@ -47,8 +47,12 @@ test_expr =
     (Apply
       (loc (Ctor (loc (path (CtorName "Just")))))
       (loc
-        (Apply (loc (Var (loc (path (VarName "f")))))
-               (loc (Literal (loc (Integer 1))))
+        (Parens
+          (loc
+            (Apply (loc (Var (loc (path (VarName "f")))))
+                   (loc (Literal (loc (Integer 1))))
+            )
+          )
         )
       )
     )
@@ -80,9 +84,13 @@ test_expr =
       (loc (Literal (loc (Integer 1))))
       (loc (VarInfix (path (VarName "+"))))
       (loc
-        (InfixApply (loc (Literal (loc (Integer 2))))
-                    (loc (VarInfix (path (VarName "*"))))
-                    (loc (Literal (loc (Integer 3))))
+        (Parens
+          (loc
+            (InfixApply (loc (Literal (loc (Integer 2))))
+                        (loc (VarInfix (path (VarName "*"))))
+                        (loc (Literal (loc (Integer 3))))
+            )
+          )
         )
       )
     )
@@ -107,8 +115,12 @@ test_expr =
     (Lambda
       (Sequence
         [ loc
-          (P.Ctor (loc (path (CtorName "X")))
-                  (Sequence [loc (P.Var (loc (VarName "x")))])
+          (P.Parens
+            (loc
+              (P.Ctor (loc (path (CtorName "X")))
+                      (Sequence [loc (P.Var (loc (VarName "x")))])
+              )
+            )
           )
         , loc P.Wildcard
         ]

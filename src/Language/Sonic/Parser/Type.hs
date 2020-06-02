@@ -64,7 +64,7 @@ ctorTypeParser :: Source s => Parse s (Type Offset)
 ctorTypeParser = Ctor <$> withOffset (pathParser tyCtorNameParser)
 
 tupleOrParensTypeParser :: Source s => Parse s (Type Offset)
-tupleOrParensTypeParser = tupleOrParensParser Tuple typeParser
+tupleOrParensTypeParser = tupleOrParensParser Tuple Parens typeParser
 
 forallTypeParser :: Source s => Parse s (Type Offset)
 forallTypeParser = do

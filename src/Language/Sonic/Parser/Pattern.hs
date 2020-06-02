@@ -48,7 +48,7 @@ varPatParser :: Source s => Parse s (Pat Offset)
 varPatParser = Var <$> withOffset varNameParser
 
 tupleOrParensPatParser :: Source s => Parse s (Pat Offset)
-tupleOrParensPatParser = tupleOrParensParser Tuple patParser
+tupleOrParensPatParser = tupleOrParensParser Tuple Parens patParser
 
 ctorPatParser :: Source s => Parse s (Pat Offset)
 ctorPatParser = do

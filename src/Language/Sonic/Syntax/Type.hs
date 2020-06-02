@@ -22,7 +22,8 @@ import           Language.Sonic.Syntax.Path     ( Path )
 import           Language.Sonic.Syntax.Kind     ( Kind )
 
 data Type l
-  = Var (Located l TyVarName)
+  = Parens (Located l Type)
+  | Var (Located l TyVarName)
   | Ctor (Located l (Path TyCtorName))
   | Tuple (Located l (Sequence Type))
   | Apply (Located l Type) (Located l Type)

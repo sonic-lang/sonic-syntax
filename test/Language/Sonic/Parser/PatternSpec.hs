@@ -64,7 +64,10 @@ test_pat =
       )
       (Sequence
         [ loc Wildcard
-        , loc (Ctor (loc (path (CtorName "X"))) (Sequence [loc Wildcard]))
+        , loc
+          (Parens
+            (loc (Ctor (loc (path (CtorName "X"))) (Sequence [loc Wildcard])))
+          )
         ]
       )
     )
@@ -86,9 +89,13 @@ test_pat =
       (loc Wildcard)
       (loc (PatInfix (path (CtorName ":+:"))))
       (loc
-        (Infix (loc Wildcard)
-               (loc (PatInfix (path (CtorName ":*:"))))
-               (loc Wildcard)
+        (Parens
+          (loc
+            (Infix (loc Wildcard)
+                   (loc (PatInfix (path (CtorName ":*:"))))
+                   (loc Wildcard)
+            )
+          )
         )
       )
     )

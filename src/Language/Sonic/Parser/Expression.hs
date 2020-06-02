@@ -73,7 +73,7 @@ literalExprParser :: Source s => Parse s (Expr Offset)
 literalExprParser = Literal <$> withOffset literalParser
 
 tupleOrParensExprParser :: Source s => Parse s (Expr Offset)
-tupleOrParensExprParser = tupleOrParensParser Tuple exprParser
+tupleOrParensExprParser = tupleOrParensParser Tuple Parens exprParser
 
 lambdaExprParser :: Source s => Parse s (Expr Offset)
 lambdaExprParser = do
