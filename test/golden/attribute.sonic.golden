@@ -150,31 +150,41 @@ Right
                                                                 , column = 4
                                                                 }
                                                             , content = FunctionClause
-                                                                { pats = Sequence
-                                                                    [ L
-                                                                        { begin = Position
-                                                                            { line = 4
-                                                                            , column = 4
-                                                                            }
-                                                                        , content = Var
-                                                                            ( L
-                                                                                { begin = Position
-                                                                                    { line = 4
-                                                                                    , column = 4
-                                                                                    }
-                                                                                , content = VarName "x"
-                                                                                , end = Position
-                                                                                    { line = 4
-                                                                                    , column = 6
-                                                                                    }
-                                                                                }
-                                                                            )
-                                                                        , end = Position
-                                                                            { line = 4
-                                                                            , column = 6
-                                                                            }
+                                                                { pats = L
+                                                                    { begin = Position
+                                                                        { line = 4
+                                                                        , column = 4
                                                                         }
-                                                                    ]
+                                                                    , content = Sequence
+                                                                        [ L
+                                                                            { begin = Position
+                                                                                { line = 4
+                                                                                , column = 4
+                                                                                }
+                                                                            , content = Var
+                                                                                ( L
+                                                                                    { begin = Position
+                                                                                        { line = 4
+                                                                                        , column = 4
+                                                                                        }
+                                                                                    , content = VarName "x"
+                                                                                    , end = Position
+                                                                                        { line = 4
+                                                                                        , column = 6
+                                                                                        }
+                                                                                    }
+                                                                                )
+                                                                            , end = Position
+                                                                                { line = 4
+                                                                                , column = 6
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    , end = Position
+                                                                        { line = 4
+                                                                        , column = 6
+                                                                        }
+                                                                    }
                                                                 , guard = Nothing
                                                                 , body = L
                                                                     { begin = Position

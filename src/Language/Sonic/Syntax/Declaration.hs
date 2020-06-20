@@ -80,7 +80,7 @@ data FunctionDecl l
 -- | Clause in function declaration.
 data FunctionClause l
   = FunctionClause
-  { pats     :: Sequence Pat l
+  { pats     :: Located l (Sequence Pat)
   , guard    :: Maybe (Located l Guard)
   , body     :: Located l Expr
   , bindings :: Maybe (Located l (WhereClause SimpleDecl))

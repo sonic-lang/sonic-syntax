@@ -113,7 +113,7 @@ whereClauseParser d = do
 
 functionClauseParser :: Source s => Parse s (FunctionClause Offset)
 functionClauseParser = do
-  pats  <- Sequence <$> some (withOffset patParser)
+  pats  <- withOffset (Sequence <$> some (withOffset patParser))
   guard <- optional $ withOffset guardParser
   symbol "="
   body     <- withOffset exprParser
