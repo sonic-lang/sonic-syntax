@@ -1,0 +1,302 @@
+Right
+    ( L
+        { begin = Position
+            { line = 1
+            , column = 1
+            }
+        , content = Module
+            ( Sequence
+                [ L
+                    { begin = Position
+                        { line = 1
+                        , column = 1
+                        }
+                    , content = TopDecl
+                        ( L
+                            { begin = Position
+                                { line = 1
+                                , column = 1
+                                }
+                            , content = WithAttrSet Nothing
+                                ( L
+                                    { begin = Position
+                                        { line = 1
+                                        , column = 1
+                                        }
+                                    , content = Simple
+                                        ( Function
+                                            ( FunctionDecl
+                                                { name = L
+                                                    { begin = Position
+                                                        { line = 1
+                                                        , column = 1
+                                                        }
+                                                    , content = VarName "or"
+                                                    , end = Position
+                                                        { line = 1
+                                                        , column = 4
+                                                        }
+                                                    }
+                                                , clauses = L
+                                                    { begin = Position
+                                                        { line = 1
+                                                        , column = 4
+                                                        }
+                                                    , content = Sequence
+                                                        [ L
+                                                            { begin = Position
+                                                                { line = 1
+                                                                , column = 6
+                                                                }
+                                                            , content = FunctionClause
+                                                                { pats = L
+                                                                    { begin = Position
+                                                                        { line = 1
+                                                                        , column = 6
+                                                                        }
+                                                                    , content = Sequence
+                                                                        [ L
+                                                                            { begin = Position
+                                                                                { line = 1
+                                                                                , column = 6
+                                                                                }
+                                                                            , content = Ctor
+                                                                                ( L
+                                                                                    { begin = Position
+                                                                                        { line = 1
+                                                                                        , column = 6
+                                                                                        }
+                                                                                    , content = Path
+                                                                                        { prefix = Nothing
+                                                                                        , modulePath = Nothing
+                                                                                        , name = L
+                                                                                            { begin = Position
+                                                                                                { line = 1
+                                                                                                , column = 6
+                                                                                                }
+                                                                                            , content = CtorName "False"
+                                                                                            , end = Position
+                                                                                                { line = 1
+                                                                                                , column = 12
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    , end = Position
+                                                                                        { line = 1
+                                                                                        , column = 12
+                                                                                        }
+                                                                                    }
+                                                                                ) ( Sequence [] )
+                                                                            , end = Position
+                                                                                { line = 1
+                                                                                , column = 12
+                                                                                }
+                                                                            }
+                                                                        , L
+                                                                            { begin = Position
+                                                                                { line = 1
+                                                                                , column = 12
+                                                                                }
+                                                                            , content = Ctor
+                                                                                ( L
+                                                                                    { begin = Position
+                                                                                        { line = 1
+                                                                                        , column = 12
+                                                                                        }
+                                                                                    , content = Path
+                                                                                        { prefix = Nothing
+                                                                                        , modulePath = Nothing
+                                                                                        , name = L
+                                                                                            { begin = Position
+                                                                                                { line = 1
+                                                                                                , column = 12
+                                                                                                }
+                                                                                            , content = CtorName "False"
+                                                                                            , end = Position
+                                                                                                { line = 1
+                                                                                                , column = 18
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    , end = Position
+                                                                                        { line = 1
+                                                                                        , column = 18
+                                                                                        }
+                                                                                    }
+                                                                                ) ( Sequence [] )
+                                                                            , end = Position
+                                                                                { line = 1
+                                                                                , column = 18
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    , end = Position
+                                                                        { line = 1
+                                                                        , column = 18
+                                                                        }
+                                                                    }
+                                                                , guard = Nothing
+                                                                , body = L
+                                                                    { begin = Position
+                                                                        { line = 1
+                                                                        , column = 20
+                                                                        }
+                                                                    , content = Ctor
+                                                                        ( L
+                                                                            { begin = Position
+                                                                                { line = 1
+                                                                                , column = 20
+                                                                                }
+                                                                            , content = Path
+                                                                                { prefix = Nothing
+                                                                                , modulePath = Nothing
+                                                                                , name = L
+                                                                                    { begin = Position
+                                                                                        { line = 1
+                                                                                        , column = 20
+                                                                                        }
+                                                                                    , content = CtorName "False"
+                                                                                    , end = Position
+                                                                                        { line = 2
+                                                                                        , column = 4
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            , end = Position
+                                                                                { line = 2
+                                                                                , column = 4
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    , end = Position
+                                                                        { line = 2
+                                                                        , column = 4
+                                                                        }
+                                                                    }
+                                                                , bindings = Nothing
+                                                                }
+                                                            , end = Position
+                                                                { line = 2
+                                                                , column = 4
+                                                                }
+                                                            }
+                                                        , L
+                                                            { begin = Position
+                                                                { line = 2
+                                                                , column = 6
+                                                                }
+                                                            , content = FunctionClause
+                                                                { pats = L
+                                                                    { begin = Position
+                                                                        { line = 2
+                                                                        , column = 6
+                                                                        }
+                                                                    , content = Sequence
+                                                                        [ L
+                                                                            { begin = Position
+                                                                                { line = 2
+                                                                                , column = 6
+                                                                                }
+                                                                            , content = Wildcard
+                                                                            , end = Position
+                                                                                { line = 2
+                                                                                , column = 12
+                                                                                }
+                                                                            }
+                                                                        , L
+                                                                            { begin = Position
+                                                                                { line = 2
+                                                                                , column = 12
+                                                                                }
+                                                                            , content = Wildcard
+                                                                            , end = Position
+                                                                                { line = 2
+                                                                                , column = 18
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    , end = Position
+                                                                        { line = 2
+                                                                        , column = 18
+                                                                        }
+                                                                    }
+                                                                , guard = Nothing
+                                                                , body = L
+                                                                    { begin = Position
+                                                                        { line = 2
+                                                                        , column = 20
+                                                                        }
+                                                                    , content = Ctor
+                                                                        ( L
+                                                                            { begin = Position
+                                                                                { line = 2
+                                                                                , column = 20
+                                                                                }
+                                                                            , content = Path
+                                                                                { prefix = Nothing
+                                                                                , modulePath = Nothing
+                                                                                , name = L
+                                                                                    { begin = Position
+                                                                                        { line = 2
+                                                                                        , column = 20
+                                                                                        }
+                                                                                    , content = CtorName "True"
+                                                                                    , end = Position
+                                                                                        { line = 3
+                                                                                        , column = 1
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            , end = Position
+                                                                                { line = 3
+                                                                                , column = 1
+                                                                                }
+                                                                            }
+                                                                        )
+                                                                    , end = Position
+                                                                        { line = 3
+                                                                        , column = 1
+                                                                        }
+                                                                    }
+                                                                , bindings = Nothing
+                                                                }
+                                                            , end = Position
+                                                                { line = 3
+                                                                , column = 1
+                                                                }
+                                                            }
+                                                        ]
+                                                    , end = Position
+                                                        { line = 3
+                                                        , column = 1
+                                                        }
+                                                    }
+                                                }
+                                            )
+                                        )
+                                    , end = Position
+                                        { line = 3
+                                        , column = 1
+                                        }
+                                    }
+                                )
+                            , end = Position
+                                { line = 3
+                                , column = 1
+                                }
+                            }
+                        )
+                    , end = Position
+                        { line = 3
+                        , column = 1
+                        }
+                    }
+                ]
+            )
+        , end = Position
+            { line = 3
+            , column = 1
+            }
+        }
+    , []
+    )

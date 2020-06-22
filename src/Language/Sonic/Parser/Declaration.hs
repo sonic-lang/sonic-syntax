@@ -47,7 +47,9 @@ import           Language.Sonic.Parser.Type     ( typeParser
                                                 , contextParser
                                                 , tyVarBinderParser
                                                 )
-import           Language.Sonic.Parser.Pattern  ( patParser )
+import           Language.Sonic.Parser.Pattern  ( patParser
+                                                , atomPatParser
+                                                )
 import           Language.Sonic.Parser.Expression
                                                 ( exprParser
                                                 , guardParser
@@ -113,7 +115,7 @@ whereClauseParser d = do
 
 functionClauseParser :: Source s => Parse s (FunctionClause Offset)
 functionClauseParser = do
-  pats  <- withOffset (Sequence <$> some (withOffset patParser))
+  pats  <- withOffset (Sequence <$> some (withOffset atomPatParser))
   guard <- optional $ withOffset guardParser
   symbol "="
   body     <- withOffset exprParser
