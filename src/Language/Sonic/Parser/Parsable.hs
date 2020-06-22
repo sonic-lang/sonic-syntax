@@ -27,16 +27,7 @@ import           Language.Sonic.Parser.Attribute
 import           Language.Sonic.Parser.Declaration
 import           Language.Sonic.Parser.Module
 
-import           Language.Sonic.Syntax.Name
-import           Language.Sonic.Syntax.Path
-import           Language.Sonic.Syntax.Literal
-import           Language.Sonic.Syntax.Pattern
-import           Language.Sonic.Syntax.Kind
-import           Language.Sonic.Syntax.Type
-import           Language.Sonic.Syntax.Expression
-import           Language.Sonic.Syntax.Attribute
-import           Language.Sonic.Syntax.Declaration
-import           Language.Sonic.Syntax.Module
+import           Language.Sonic.Syntax
 
 class Traversable a => Parsable a where
   parser :: Source s => Parse s (a Offset)

@@ -29,6 +29,7 @@ library
   hs-source-dirs:     src
   exposed-modules:
     Language.Sonic.Parser
+    Language.Sonic.Syntax
     Language.Sonic.Syntax.Attribute
     Language.Sonic.Syntax.Declaration
     Language.Sonic.Syntax.Expression
